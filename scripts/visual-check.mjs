@@ -207,6 +207,17 @@ const exercisePage = async ({ name, width, height, mobile = false }) => {
     await page.addStyleTag({ content: 'html { scroll-behavior: auto !important; }' });
     await page.locator('.primary-nav a[href="#services"]').evaluate((link) => link.click());
     await page.waitForTimeout(900);
+    const servicesNavigationState = await page.evaluate(() => {
+      const link = document.querySelector('.primary-nav a[href="#services"]');
+      const liquid = document.querySelector('[data-nav-liquid]');
+      if (!link || !liquid) return null;
+      const linkBox = link.getBoundingClientRect();
+      const liquidBox = liquid.getBoundingClientRect();
+      return Math.abs((linkBox.left + linkBox.width / 2) - (liquidBox.left + liquidBox.width / 2));
+    });
+    if (servicesNavigationState === null || servicesNavigationState > 10) {
+      failures.push(`${name}: navigation fill detached when the transparent header became sticky`);
+    }
     await page.locator('.primary-nav a[href="#prices"]').evaluate((link) => link.click());
     await page.waitForTimeout(80);
     const liquidMotion = await page.locator('[data-nav-liquid]').evaluate((element) => ({

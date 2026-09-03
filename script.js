@@ -70,12 +70,17 @@ const branches = {
   },
 };
 
+let headerLayoutFrame;
 const setHeaderState = () => {
-  header?.classList.toggle('is-scrolled', window.scrollY > 18);
-};
+  const shouldBeScrolled = window.scrollY > 18;
+  const layoutChanged = header?.classList.contains('is-scrolled') !== shouldBeScrolled;
+  header?.classList.toggle('is-scrolled', shouldBeScrolled);
 
-setHeaderState();
-window.addEventListener('scroll', setHeaderState, { passive: true });
+  if (layoutChanged && activeNavigationLink && !mobileNavigation.matches) {
+    window.cancelAnimationFrame(headerLayoutFrame);
+    headerLayoutFrame = window.requestAnimationFrame(() => moveNavLiquid(activeNavigationLink, false));
+  }
+};
 
 const closeMenu = () => {
   body.classList.remove('menu-open');
@@ -269,6 +274,9 @@ window.addEventListener('resize', () => {
     if (activeNavigationLink && !mobileNavigation.matches) moveNavLiquid(activeNavigationLink, false);
   });
 }, { passive: true });
+
+setHeaderState();
+window.addEventListener('scroll', setHeaderState, { passive: true });
 
 const openBooking = (trigger) => {
   closeMenu();
