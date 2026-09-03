@@ -32,6 +32,11 @@ const exercisePage = async ({ name, width, height, mobile = false }) => {
   });
 
   await page.goto(baseUrl, { waitUntil: 'networkidle' });
+  await page.locator('.site-loader').waitFor({ state: 'detached', timeout: 4000 });
+  const loadingState = await page.locator('body').getAttribute('aria-busy');
+  if (loadingState !== 'false') failures.push(`${name}: loading screen did not release cleanly`);
+  const bodyBackground = await page.locator('body').evaluate((element) => getComputedStyle(element).backgroundColor);
+  if (bodyBackground !== 'rgb(255, 255, 255)') failures.push(`${name}: page background is not white`);
   await page.locator('img').evaluateAll((images) => images.forEach((image) => { image.loading = 'eager'; }));
   await page.evaluate(async () => {
     const pause = (time) => new Promise((resolvePause) => setTimeout(resolvePause, time));
@@ -105,4 +110,4 @@ if (failures.length) {
 }
 
 console.log('✓ Desktop and mobile layouts captured');
-console.log('✓ Images, mobile menu, booking dialog, and Ruiru WhatsApp routing passed');
+console.log('✓ Loader, white canvas, images, mobile menu, booking dialog, and Ruiru WhatsApp routing passed');

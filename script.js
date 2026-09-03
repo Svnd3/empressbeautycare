@@ -1,12 +1,34 @@
-document.documentElement.classList.add('js');
-
 const body = document.body;
+const siteLoader = document.querySelector('.site-loader');
 const header = document.querySelector('[data-header]');
 const menuToggle = document.querySelector('.menu-toggle');
 const primaryNav = document.querySelector('#primary-nav');
 const bookingDialog = document.querySelector('#booking-dialog');
 const bookingForm = document.querySelector('#booking-form');
 const bookingStatus = bookingForm?.querySelector('.form-status');
+
+body.classList.add('is-loading');
+body.setAttribute('aria-busy', 'true');
+
+const wait = (duration) => new Promise((resolve) => window.setTimeout(resolve, duration));
+const heroImage = document.querySelector('.hero-main-image img');
+const heroReady = heroImage?.complete
+  ? heroImage.decode?.().catch(() => undefined) ?? Promise.resolve()
+  : new Promise((resolve) => {
+      heroImage?.addEventListener('load', resolve, { once: true });
+      heroImage?.addEventListener('error', resolve, { once: true });
+    });
+const fontsReady = document.fonts?.ready ?? Promise.resolve();
+
+Promise.all([
+  Promise.race([Promise.all([fontsReady, heroReady]), wait(2500)]),
+  wait(window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 0 : 280),
+]).then(() => {
+  siteLoader?.classList.add('is-complete');
+  body.classList.remove('is-loading');
+  body.setAttribute('aria-busy', 'false');
+  window.setTimeout(() => siteLoader?.remove(), 260);
+});
 
 const branches = {
   rng: {
@@ -201,23 +223,6 @@ document.querySelectorAll('.faq-list details').forEach((item) => {
     });
   });
 });
-
-const revealItems = document.querySelectorAll('.reveal');
-if ('IntersectionObserver' in window) {
-  const revealObserver = new IntersectionObserver(
-    (entries, observer) => {
-      entries.forEach((entry) => {
-        if (!entry.isIntersecting) return;
-        entry.target.classList.add('is-visible');
-        observer.unobserve(entry.target);
-      });
-    },
-    { rootMargin: '0px 0px -7% 0px', threshold: 0.08 },
-  );
-  revealItems.forEach((item) => revealObserver.observe(item));
-} else {
-  revealItems.forEach((item) => item.classList.add('is-visible'));
-}
 
 document.querySelectorAll('[data-year]').forEach((item) => {
   item.textContent = String(new Date().getFullYear());

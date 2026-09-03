@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="theme-color" content="#f6f0e7" />
+    <meta name="theme-color" content="#ffffff" />
     <meta
       name="description"
       content="Braids, locs, nails, facials, massage, waxing and cuts at Empress Beautycare in Nairobi CBD and Ruiru. Request your appointment on WhatsApp."
@@ -17,7 +17,7 @@
     <meta property="og:type" content="website" />
     <link rel="icon" href="./favicon.svg" type="image/svg+xml" />
     <link rel="preload" href="./fonts/manrope-latin.woff2" as="font" type="font/woff2" crossorigin />
-    <link rel="preload" href="./fonts/dm-serif-display-latin.woff2" as="font" type="font/woff2" crossorigin />
+    <script>document.documentElement.classList.add('js');</script>
     <link rel="stylesheet" href="./styles.css" />
     <title>Empress Beautycare | Nairobi CBD &amp; Ruiru</title>
     <script type="application/ld+json">
@@ -77,6 +77,15 @@
     </script>
   </head>
   <body>
+    <div class="site-loader" role="status" aria-label="Loading Empress Beautycare">
+      <div class="loader-lockup" aria-hidden="true">
+        <span class="loader-mark">E</span>
+        <span class="loader-name">Empress <small>Beautycare</small></span>
+      </div>
+      <div class="loader-track" aria-hidden="true"><span></span></div>
+      <span class="sr-only">Preparing Empress Beautycare</span>
+    </div>
+
     <a class="skip-link" href="#main">Skip to content</a>
 
     <div class="notice-bar">
@@ -112,16 +121,16 @@
     <main id="main">
       <section class="hero" id="top">
         <div class="hero-copy reveal">
-          <p class="eyebrow">Nairobi CBD <span aria-hidden="true">/</span> Ruiru</p>
-          <h1>Your whole beauty routine, <em>under one roof.</em></h1>
+          <p class="eyebrow">Three studios · Nairobi CBD &amp; Ruiru</p>
+          <h1>Your beauty day, all in one place.</h1>
           <p class="hero-intro">
-            Braids, locs, nails, skin, body care and cuts—done by one team across three easy-to-reach studios.
+            Braids, locs, nails, skin, body care and cuts—one trusted team, with a branch close to you.
           </p>
           <div class="button-row">
-            <button class="button button--gold" type="button" data-open-booking>Request an appointment</button>
+            <button class="button button--primary" type="button" data-open-booking>Request an appointment</button>
             <a class="button button--ghost" href="#services">Explore services</a>
           </div>
-          <p class="microcopy">Your request is confirmed when the Empress team replies.</p>
+          <p class="microcopy"><span aria-hidden="true">●</span> Walk-ins welcome. Appointments are confirmed by the team.</p>
         </div>
 
         <div class="hero-visual reveal" data-delay="1">
@@ -156,19 +165,19 @@
       </section>
 
       <nav class="service-rail" aria-label="Browse service categories">
-        <a href="#braids"><span aria-hidden="true">B</span>Braids</a>
-        <a href="#locs"><span aria-hidden="true">L</span>Locs</a>
-        <a href="#nails"><span aria-hidden="true">N</span>Nails</a>
-        <a href="#care"><span aria-hidden="true">S</span>Skin</a>
-        <a href="#care"><span aria-hidden="true">M</span>Massage</a>
-        <a href="#cuts"><span aria-hidden="true">C</span>Cuts</a>
+        <a href="#braids"><span aria-hidden="true"><img src="./images/braids.webp" alt="" /></span>Braids</a>
+        <a href="#locs"><span aria-hidden="true"><img src="./images/locs.webp" alt="" /></span>Locs</a>
+        <a href="#nails"><span aria-hidden="true"><img src="./images/nails.webp" alt="" /></span>Nails</a>
+        <a href="#care"><span aria-hidden="true" class="rail-symbol">S</span>Skin</a>
+        <a href="#care"><span aria-hidden="true" class="rail-symbol">M</span>Massage</a>
+        <a href="#cuts"><span aria-hidden="true"><img src="./images/haircut.webp" alt="" /></span>Cuts</a>
       </nav>
 
       <section class="section services-section" id="services">
         <div class="section-heading reveal">
           <div>
-            <p class="eyebrow">All the essentials</p>
-            <h2>Come for one thing.<br /><em>Leave feeling finished.</em></h2>
+            <p class="eyebrow">Services</p>
+            <h2>Everything you came for.</h2>
           </div>
           <p>
             Build a beauty day around you. Start with hair, add nails or skin care, and request it all in one message.
@@ -235,10 +244,10 @@
 
       <section class="section prices-section" id="prices">
         <div class="price-intro reveal">
-          <p class="eyebrow eyebrow--light">Recent offer guide</p>
-          <h2>Know the starting point <em>before you sit down.</em></h2>
+          <p class="eyebrow">Price guide</p>
+          <h2>Starting prices, clearly shown.</h2>
           <p>Selected starting prices seen in Empress Beautycare’s recent social offers.</p>
-          <button class="button button--cream" type="button" data-open-booking>Ask for today’s price</button>
+          <button class="button button--primary" type="button" data-open-booking>Ask for today’s price</button>
         </div>
 
         <div class="price-menu reveal" data-delay="1">
@@ -281,8 +290,8 @@
       <section class="section work-section" id="work">
         <div class="section-heading section-heading--compact reveal">
           <div>
-            <p class="eyebrow">Made at Empress</p>
-            <h2>Real work. <em>Real range.</em></h2>
+            <p class="eyebrow">Recent work</p>
+            <h2>Made at Empress.</h2>
           </div>
           <a class="inline-link" href="https://www.instagram.com/empressbeautycare/" target="_blank" rel="noreferrer">See the latest on Instagram <span aria-hidden="true">↗</span></a>
         </div>
@@ -309,8 +318,8 @@
 
       <section class="section branches-section" id="branches">
         <div class="branch-heading reveal">
-          <p class="eyebrow">Find your closest studio</p>
-          <h2>Three branches.<br /><em>One Empress standard.</em></h2>
+          <p class="eyebrow">Choose a branch</p>
+          <h2>Find your closest studio.</h2>
           <p>Open daily with walk-ins welcome. Message first to confirm today’s closing time and availability.</p>
         </div>
 
@@ -361,9 +370,9 @@
 
       <section class="section booking-story" aria-label="How booking works">
         <div class="booking-story-intro reveal">
-          <p class="eyebrow">No endless back-and-forth</p>
-          <h2>Tell us what you need in <em>one clean message.</em></h2>
-          <button class="button button--gold" type="button" data-open-booking>Build my request</button>
+          <p class="eyebrow eyebrow--light">How booking works</p>
+          <h2>Three quick steps.</h2>
+          <button class="button button--cream" type="button" data-open-booking>Build my request</button>
         </div>
         <ol class="booking-steps reveal" data-delay="1">
           <li><span>01</span><strong>Choose your branch</strong><p>RNG Plaza, Simara Mall or Ruiru.</p></li>
@@ -374,8 +383,8 @@
 
       <section class="section faq-section" id="answers">
         <div class="faq-intro reveal">
-          <p class="eyebrow">Good to know</p>
-          <h2>A smoother visit <em>starts here.</em></h2>
+          <p class="eyebrow">Questions</p>
+          <h2>Good to know.</h2>
           <p>Still unsure? Call <a href="tel:+254720016178">0720&nbsp;016&nbsp;178</a> or send a booking request.</p>
         </div>
 
@@ -405,12 +414,11 @@
 
       <section class="final-cta">
         <div class="final-cta-copy reveal">
-          <p class="eyebrow eyebrow--light">Your chair is waiting</p>
-          <h2>One message.<br /><em>Your next look.</em></h2>
+          <p class="eyebrow">Ready when you are</p>
+          <h2>Choose your branch and request a slot.</h2>
           <p>Pick a studio, tell us what you want, and let the Empress team take it from there.</p>
-          <button class="button button--cream" type="button" data-open-booking>Request a slot</button>
+          <button class="button button--primary" type="button" data-open-booking>Request a slot</button>
         </div>
-        <div class="final-cta-mark" aria-hidden="true">E</div>
       </section>
     </main>
 
@@ -443,7 +451,7 @@
         <div class="dialog-aside">
           <button class="dialog-close dialog-close--light" type="button" data-close-booking aria-label="Close booking form">×</button>
           <p class="eyebrow eyebrow--light">Booking request</p>
-          <h2 id="booking-title">Let’s get you <em>in the chair.</em></h2>
+          <h2 id="booking-title">Request your appointment.</h2>
           <p>Complete the details once. We’ll turn them into a clear WhatsApp message for the right branch.</p>
           <div class="dialog-promise"><span>01</span><p><strong>No payment here</strong>Confirm price directly with the team.</p></div>
           <div class="dialog-promise"><span>02</span><p><strong>No false confirmation</strong>Your slot is held only after a reply.</p></div>

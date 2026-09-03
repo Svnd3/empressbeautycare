@@ -4,14 +4,19 @@ A polished, mobile-first website concept for Empress Beautycare’s three studio
 
 The experience turns social discovery into a simple customer journey: understand the services, choose a branch, get directions, and send a complete appointment request to the correct WhatsApp number.
 
+## Design reference
+
+The supplied Apple archive was served from `www.apple.com/www.apple.com` and its Watch page was reviewed at desktop, tablet, and mobile widths. This build adapts its white canvas, light-gray grouping, wide content frame, product-card rhythm, compact chapter navigation, and responsive hierarchy without copying Apple code, fonts, or assets.
+
 ## What is included
 
-- Editorial, responsive design informed by the supplied Apple and barbershop references
+- White, product-led responsive UI derived from the supplied local Apple snapshot, adapted for salon discovery and booking
 - Service discovery for braids, locs, nails, skin/body care, and cuts/colour
 - Clearly qualified “from” pricing based on recent published offers
 - Individual cards, phone links, directions, and WhatsApp routing for all three branches
 - Accessible booking dialog that builds a structured WhatsApp message
 - Keyboard-friendly price tabs, mobile navigation, accordion FAQs, and reduced-motion support
+- Asset-aware loading screen that releases after the local font and hero image are ready, with a fail-safe
 - Local, licensed webfonts and compressed WebP media
 - Organization and branch structured data for search engines
 - Research, launch safeguards, and a complete cold-call package
