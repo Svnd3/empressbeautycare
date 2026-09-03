@@ -42,21 +42,97 @@ const exercisePage = async ({ name, width, height, mobile = false }) => {
   const bodyText = await page.locator('body').innerText();
   if (bodyText.includes('Three studios')) failures.push(`${name}: removed hero studio-count phrase is visible`);
 
-  const heroWave = page.locator('.hero-wave');
-  if ((await heroWave.count()) !== 1) {
-    failures.push(`${name}: animated hero wave is missing`);
+  if ((await page.locator('.hero-wave').count()) !== 0) failures.push(`${name}: superseded thin hero wave remains`);
+
+  const heroStage = page.locator('.hero-stage');
+  if ((await heroStage.count()) !== 1) {
+    failures.push(`${name}: responsive hero stage is missing`);
   } else {
-    const waveState = await heroWave.evaluate((element) => {
-      const path = element.querySelector('path');
-      const movingElement = [element, ...element.querySelectorAll('*')]
-        .find((item) => getComputedStyle(item).animationName !== 'none');
-      return {
-        animationName: movingElement ? getComputedStyle(movingElement).animationName : 'none',
-        stroke: path ? getComputedStyle(path).stroke : 'none',
+    const heroPanelState = await heroStage.evaluate((stage, expectsMobileShape) => {
+      const desktopShape = stage.querySelector('.hero-panel-shape--desktop');
+      const mobileShape = stage.querySelector('.hero-panel-shape--mobile');
+      const expectedShape = expectsMobileShape ? mobileShape : desktopShape;
+      const alternateShape = expectsMobileShape ? desktopShape : mobileShape;
+      const copy = stage.querySelector('.hero-copy');
+      const heading = copy?.querySelector('h1');
+      const intro = copy?.querySelector('.hero-intro');
+      const isRendered = (element) => {
+        if (!element) return false;
+        const style = getComputedStyle(element);
+        const box = element.getBoundingClientRect();
+        return style.display !== 'none' && style.visibility !== 'hidden'
+          && Number.parseFloat(style.opacity) > 0 && box.width > 0 && box.height > 0;
       };
-    });
-    if (waveState.animationName === 'none') failures.push(`${name}: hero wave is not animated`);
-    if (waveState.stroke !== 'rgb(214, 0, 98)') failures.push(`${name}: hero wave is not Empress pink`);
+      const stageBox = stage.getBoundingClientRect();
+      const shapeBox = expectedShape?.getBoundingClientRect();
+      const copyBox = copy?.getBoundingClientRect();
+      const headingBox = heading?.getBoundingClientRect();
+      const pinkPath = [...(expectedShape?.querySelectorAll('path') ?? [])]
+        .find((path) => getComputedStyle(path).fill === 'rgb(214, 0, 98)');
+
+      let copyCenterIsInsidePanel = false;
+      if (pinkPath && copyBox && typeof pinkPath.isPointInFill === 'function') {
+        const matrix = pinkPath.getScreenCTM();
+        if (matrix) {
+          const screenPoint = new DOMPoint(
+            copyBox.left + copyBox.width / 2,
+            copyBox.top + copyBox.height / 2,
+          );
+          copyCenterIsInsidePanel = pinkPath.isPointInFill(screenPoint.matrixTransform(matrix.inverse()));
+        }
+      }
+
+      const overlapWidth = shapeBox && copyBox
+        ? Math.max(0, Math.min(shapeBox.right, copyBox.right) - Math.max(shapeBox.left, copyBox.left))
+        : 0;
+      const overlapHeight = shapeBox && copyBox
+        ? Math.max(0, Math.min(shapeBox.bottom, copyBox.bottom) - Math.max(shapeBox.top, copyBox.top))
+        : 0;
+      const copyArea = copyBox ? copyBox.width * copyBox.height : 0;
+      const topElement = headingBox
+        ? document.elementFromPoint(headingBox.left + headingBox.width / 2, headingBox.top + headingBox.height / 2)
+        : null;
+      const isLightText = (element) => {
+        if (!element) return false;
+        const channels = getComputedStyle(element).color.match(/[\d.]+/g)?.slice(0, 3).map(Number) ?? [];
+        return channels.length === 3 && channels.every((channel) => channel >= 230);
+      };
+
+      return {
+        alternateVisible: isRendered(alternateShape),
+        copyCenterIsInsidePanel,
+        copyInStage: Boolean(copy && stage.contains(copy)),
+        copyOverlapRatio: copyArea ? (overlapWidth * overlapHeight) / copyArea : 0,
+        contentIsTopmost: Boolean(copy && topElement && copy.contains(topElement)),
+        desktopShapeExists: Boolean(desktopShape?.querySelector('path')),
+        expectedVisible: isRendered(expectedShape),
+        headingIsLight: isLightText(heading),
+        hasRealCopy: Boolean(heading?.textContent.trim() && intro?.textContent.trim()),
+        introIsLight: isLightText(intro),
+        mobileShapeExists: Boolean(mobileShape?.querySelector('path')),
+        panelFill: pinkPath ? getComputedStyle(pinkPath).fill : 'none',
+        panelHeightRatio: shapeBox && stageBox.height ? shapeBox.height / stageBox.height : 0,
+        panelWidthRatio: shapeBox && stageBox.width ? shapeBox.width / stageBox.width : 0,
+      };
+    }, mobile);
+
+    if (!heroPanelState.desktopShapeExists || !heroPanelState.mobileShapeExists) {
+      failures.push(`${name}: desktop or mobile curved hero SVG is missing its path`);
+    }
+    if (!heroPanelState.expectedVisible || heroPanelState.alternateVisible) {
+      failures.push(`${name}: responsive hero SVG did not swap correctly`);
+    }
+    if (heroPanelState.panelFill !== 'rgb(214, 0, 98)') failures.push(`${name}: visible hero panel is not Empress pink`);
+    if (heroPanelState.panelWidthRatio < .45 || heroPanelState.panelHeightRatio < .55) {
+      failures.push(`${name}: pink hero panel is too small to form the intended large overlay`);
+    }
+    if (!heroPanelState.copyInStage || !heroPanelState.hasRealCopy) failures.push(`${name}: real hero copy is not inside the hero stage`);
+    if (heroPanelState.copyOverlapRatio < .85 || !heroPanelState.copyCenterIsInsidePanel) {
+      failures.push(`${name}: hero copy does not sit clearly inside the pink panel`);
+    }
+    if (!heroPanelState.headingIsLight || !heroPanelState.introIsLight || !heroPanelState.contentIsTopmost) {
+      failures.push(`${name}: hero copy is not visibly legible above the pink panel`);
+    }
   }
 
   const counterAudit = await page.evaluate(() => ({
@@ -225,4 +301,4 @@ if (failures.length) {
 }
 
 console.log('✓ Desktop and mobile layouts captured');
-console.log('✓ Loader, hero wave, liquid navigation, branch contacts, white canvas, images, map tabs, booking, and WhatsApp routing passed');
+console.log('✓ Loader, responsive hero panel, liquid navigation, branch contacts, white canvas, images, map tabs, booking, and WhatsApp routing passed');

@@ -135,25 +135,7 @@
 
     <main id="main">
       <section class="hero" id="top">
-        <div class="hero-copy reveal">
-          <h1>Your beauty day, all in one place.</h1>
-          <p class="hero-intro">
-            Braids, locs, nails, skin, body care and cuts—one trusted team, with a branch close to you.
-          </p>
-          <div class="button-row">
-            <button class="button button--primary" type="button" data-open-booking>Request an appointment</button>
-            <a class="button button--ghost" href="#services">Explore services</a>
-          </div>
-          <p class="microcopy">Walk-ins welcome. Appointments are confirmed by the team.</p>
-        </div>
-
-        <div class="hero-wave" aria-hidden="true">
-          <svg viewBox="0 0 2400 72" preserveAspectRatio="none">
-            <path d="M0 36C100 7 200 65 300 36S500 7 600 36S800 65 900 36S1100 7 1200 36S1400 65 1500 36S1700 7 1800 36S2000 65 2100 36S2300 7 2400 36" />
-          </svg>
-        </div>
-
-        <div class="hero-visual reveal" data-delay="1">
+        <div class="hero-stage reveal" data-delay="1">
           <figure class="hero-main-image">
             <img
               src="./images/salon.webp"
@@ -163,12 +145,41 @@
               fetchpriority="high"
             />
           </figure>
-          <figure class="hero-detail hero-detail--one">
-            <img src="./images/nails.webp" width="900" height="910" alt="A finished Empress nail set" />
-          </figure>
-          <figure class="hero-detail hero-detail--two">
-            <img src="./images/braids.webp" width="900" height="950" alt="Long knotless braids styled at Empress Beautycare" />
-          </figure>
+
+          <svg
+            class="hero-panel-shape hero-panel-shape--desktop"
+            viewBox="0 0 1200 720"
+            preserveAspectRatio="none"
+            aria-hidden="true"
+            focusable="false"
+          >
+            <path class="hero-panel-fill" d="M560 0C445 82 425 164 492 244C566 333 372 408 452 510C526 605 402 668 520 720H1200V0Z" />
+            <path class="hero-panel-edge" d="M560 0C445 82 425 164 492 244C566 333 372 408 452 510C526 605 402 668 520 720" />
+          </svg>
+
+          <svg
+            class="hero-panel-shape hero-panel-shape--mobile"
+            viewBox="0 0 720 760"
+            preserveAspectRatio="none"
+            aria-hidden="true"
+            focusable="false"
+          >
+            <path class="hero-panel-fill" d="M0 310C90 248 172 350 260 292C350 230 438 337 530 278C610 226 671 288 720 250V760H0Z" />
+            <path class="hero-panel-edge" d="M0 310C90 248 172 350 260 292C350 230 438 337 530 278C610 226 671 288 720 250" />
+          </svg>
+
+          <div class="hero-copy">
+            <h1>Your beauty day, all in one place.</h1>
+            <p class="hero-intro">
+              Braids, locs, nails, skin, body care and cuts—one trusted team, with a branch close to you.
+            </p>
+            <div class="button-row">
+              <button class="button button--primary" type="button" data-open-booking>Request an appointment</button>
+              <a class="button button--ghost" href="#services">Explore services</a>
+            </div>
+            <p class="microcopy">Walk-ins welcome. Appointments are confirmed by the team.</p>
+          </div>
+
           <div class="hero-note">
             <span class="hero-note-icon" aria-hidden="true">
               <svg viewBox="0 0 24 24"><path d="M12 21s7-4.7 7-11a7 7 0 1 0-14 0c0 6.3 7 11 7 11Z"/><circle cx="12" cy="10" r="2.4"/></svg>

@@ -67,8 +67,28 @@ if (!html.includes('data-map-loading') || !styles.includes('.map-loading.is-hidd
 if (html.includes('Three studios')) {
   problems.push('The removed hero studio-count phrase is still present.');
 }
-if (!html.includes('class="hero-wave"') || !styles.includes('.hero-wave') || !/@keyframes\s+hero-wave/i.test(styles)) {
-  problems.push('The animated pink hero wave is missing.');
+if (html.includes('hero-wave') || styles.includes('.hero-wave') || /@keyframes\s+hero-wave/i.test(styles)) {
+  problems.push('The superseded thin hero wave is still present.');
+}
+if (!/class="[^"]*\bhero-stage\b[^"]*"/.test(html)
+    || !/<svg[^>]+class="[^"]*\bhero-panel-shape--desktop\b[^"]*"/i.test(html)
+    || !/<svg[^>]+class="[^"]*\bhero-panel-shape--mobile\b[^"]*"/i.test(html)) {
+  problems.push('The responsive curved hero panel structure is missing.');
+}
+if (!styles.includes('.hero-panel-shape') || !styles.includes('.hero-panel-shape--desktop') || !styles.includes('.hero-panel-shape--mobile')) {
+  problems.push('The responsive curved hero panel styles are missing.');
+}
+if (!/\.hero-panel-shape[\s\S]{0,600}(?:fill|color):\s*var\(--pink\)/i.test(styles)
+    && !/hero-panel-shape[\s\S]{0,600}<path[^>]+fill=["'](?:#d60062|var\(--pink\))["']/i.test(html)) {
+  problems.push('The curved hero SVG is not explicitly connected to the Empress pink token.');
+}
+const heroStageStart = html.search(/class="[^"]*\bhero-stage\b[^"]*"/);
+const heroStageSectionEnd = heroStageStart >= 0 ? html.indexOf('</section>', heroStageStart) : -1;
+const heroStageMarkup = heroStageStart >= 0 && heroStageSectionEnd >= 0
+  ? html.slice(heroStageStart, heroStageSectionEnd)
+  : '';
+if (!/class="[^"]*\bhero-copy\b[^"]*"/.test(heroStageMarkup)) {
+  problems.push('The real hero copy is not inside the hero stage.');
 }
 if (!html.includes('data-nav-liquid') || !styles.includes('.nav-liquid') || !script.includes('navLiquid') || !script.includes('.animate(')) {
   problems.push('The liquid active-navigation fill or its motion is missing.');
@@ -117,4 +137,4 @@ if (problems.length) {
 }
 
 console.log(`✓ ${requiredFiles.length} required files found`);
-console.log('✓ Content, branch contacts, liquid navigation, hero wave, booking, map, loader, brand, and design checks passed');
+console.log('✓ Content, branch contacts, liquid navigation, responsive hero panel, booking, map, loader, brand, and design checks passed');

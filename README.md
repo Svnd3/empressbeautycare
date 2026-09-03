@@ -11,7 +11,7 @@ The supplied Apple archive was served from `www.apple.com/www.apple.com` and its
 ## What is included
 
 - White, product-led responsive UI derived from the supplied local Apple snapshot, adapted for salon discovery and booking
-- Thin animated Empress-pink wave in the hero, with reduced-motion support
+- Responsive editorial hero with a large curved Empress-pink panel, separate desktop/mobile SVG geometry, and readable content layered inside it
 - Supplied Empress logo lockup in the navigation, with its woman mark used for the loader and favicon
 - Pink active navigation pill with a liquid, bouncy hand-off between desktop section links and a clear filled state on mobile
 - Service discovery for braids, locs, nails, skin/body care, and cuts/colour
