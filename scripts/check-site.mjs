@@ -64,6 +64,48 @@ if (!html.includes('class="site-loader"') || !script.includes("siteLoader?.class
 if (!html.includes('data-map-loading') || !styles.includes('.map-loading.is-hidden')) {
   problems.push('The map loading state is missing.');
 }
+if (html.includes('Three studios')) {
+  problems.push('The removed hero studio-count phrase is still present.');
+}
+if (!html.includes('class="hero-wave"') || !styles.includes('.hero-wave') || !/@keyframes\s+hero-wave/i.test(styles)) {
+  problems.push('The animated pink hero wave is missing.');
+}
+if (!html.includes('data-nav-liquid') || !styles.includes('.nav-liquid') || !script.includes('navLiquid') || !script.includes('.animate(')) {
+  problems.push('The liquid active-navigation fill or its motion is missing.');
+}
+
+const branchContactCards = html.match(/class="[^"]*\bbranch-contact-card\b[^"]*"/g) ?? [];
+if (branchContactCards.length !== 3) {
+  problems.push(`Expected 3 branch contact cards, found ${branchContactCards.length}.`);
+}
+
+const contactMethods = html.match(/class="[^"]*\bcontact-method\b[^"]*"/g) ?? [];
+if (contactMethods.length !== 12) {
+  problems.push(`Expected 12 branch contact methods, found ${contactMethods.length}.`);
+}
+
+for (const destination of [
+  'tel:+254720016178',
+  'tel:+254796350593',
+  'instagram.com/empressbeautycare/',
+  'instagram.com/empress_beautycare_2/',
+  'tiktok.com/@empressbeautycare',
+  'tiktok.com/@empressbeautycare2',
+  'tiktok.com/@empressbeautycare3',
+  'facebook.com/p/Empress-BeautyCare-100070468808845/',
+  'facebook.com/p/Empress-Beautycare-2-100044461598491/',
+]) {
+  if (!html.includes(destination)) problems.push(`Missing branch contact destination: ${destination}`);
+}
+
+for (const icon of ['phone', 'instagram', 'facebook', 'tiktok']) {
+  if (!html.includes(`href="#icon-${icon}"`)) problems.push(`Missing ${icon} icon in branch contact links.`);
+}
+
+if (/>\s*0[1-9]\s*</.test(html) || /<p>\s*0[1-9]\s*\//i.test(html)) {
+  problems.push('An ornamental numeric counter remains in the interface.');
+}
+if (html.includes('Three quick steps.')) problems.push('The numbered booking-step heading remains.');
 if (html.includes('Room F16') || script.includes('Room F16')) problems.push('The old Ruiru room notation remains.');
 if (!styles.includes('--white: #fff') || !styles.includes('--pink: #d60062')) {
   problems.push('The white-and-pink design tokens are missing.');
@@ -75,4 +117,4 @@ if (problems.length) {
 }
 
 console.log(`✓ ${requiredFiles.length} required files found`);
-console.log('✓ Content, branches, booking, map, loader, brand, and design checks passed');
+console.log('✓ Content, branch contacts, liquid navigation, hero wave, booking, map, loader, brand, and design checks passed');

@@ -3,6 +3,7 @@ const siteLoader = document.querySelector('.site-loader');
 const header = document.querySelector('[data-header]');
 const menuToggle = document.querySelector('.menu-toggle');
 const primaryNav = document.querySelector('#primary-nav');
+const navLiquid = document.querySelector('[data-nav-liquid]');
 const bookingDialog = document.querySelector('#booking-dialog');
 const bookingForm = document.querySelector('#booking-form');
 const bookingStatus = bookingForm?.querySelector('.form-status');
@@ -90,27 +91,184 @@ menuToggle?.addEventListener('click', () => {
   menuToggle.querySelector('.sr-only').textContent = nextState ? 'Close menu' : 'Open menu';
 });
 
-primaryNav?.querySelectorAll('a').forEach((link) => link.addEventListener('click', closeMenu));
-
 const navigationLinks = [...(primaryNav?.querySelectorAll('a[href^="#"]') ?? [])];
 const navigationSections = navigationLinks
   .map((link) => document.querySelector(link.getAttribute('href')))
   .filter(Boolean);
+const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+const mobileNavigation = window.matchMedia('(max-width: 980px)');
+let activeNavigationLink = navigationLinks.find((link) => link.getAttribute('aria-current') === 'true') ?? null;
+let navLiquidAnimation = null;
+let navigationClickLockUntil = 0;
+
+const getNavBox = (element) => {
+  const navBox = primaryNav.getBoundingClientRect();
+  const elementBox = element.getBoundingClientRect();
+  return {
+    height: elementBox.height,
+    left: elementBox.left - navBox.left,
+    top: elementBox.top - navBox.top,
+    width: elementBox.width,
+  };
+};
+
+const setNavLiquidBox = ({ height, left, top, width }) => {
+  if (!navLiquid) return;
+  navLiquid.style.height = `${height}px`;
+  navLiquid.style.left = `${left}px`;
+  navLiquid.style.top = `${top}px`;
+  navLiquid.style.width = `${width}px`;
+};
+
+const moveNavLiquid = (nextLink, animate = true) => {
+  if (!nextLink) return;
+
+  const previousLink = activeNavigationLink;
+  navigationLinks.forEach((link) => {
+    if (link === nextLink) link.setAttribute('aria-current', 'true');
+    else link.removeAttribute('aria-current');
+  });
+  activeNavigationLink = nextLink;
+
+  if (!primaryNav || !navLiquid || mobileNavigation.matches || !nextLink.getClientRects().length) return;
+
+  const targetBox = getNavBox(nextLink);
+  const canAnimate = animate
+    && !reducedMotion.matches
+    && typeof navLiquid.animate === 'function';
+  const liquidIsVisible = navLiquid.style.opacity === '1';
+
+  if (navLiquidAnimation) {
+    const navBox = primaryNav.getBoundingClientRect();
+    const renderedBox = navLiquid.getBoundingClientRect();
+    setNavLiquidBox({
+      height: renderedBox.height,
+      left: renderedBox.left - navBox.left,
+      top: renderedBox.top - navBox.top,
+      width: renderedBox.width,
+    });
+    navLiquidAnimation.cancel();
+    navLiquidAnimation = null;
+  }
+  primaryNav.classList.remove('is-liquid-moving');
+
+  primaryNav.classList.add('is-liquid-ready');
+  navLiquid.style.opacity = '1';
+
+  if (!canAnimate || !previousLink || previousLink === nextLink) {
+    setNavLiquidBox(targetBox);
+    navLiquid.style.transform = 'none';
+    if (canAnimate && !liquidIsVisible) {
+      navLiquidAnimation = navLiquid.animate([
+        { opacity: 0, transform: 'scale(.72)' },
+        { opacity: 1, transform: 'scale(1.08, .92)', offset: .66 },
+        { opacity: 1, transform: 'scale(1)' },
+      ], { duration: 440, easing: 'cubic-bezier(.2, .9, .25, 1)', fill: 'both' });
+      navLiquidAnimation.onfinish = () => {
+        navLiquid.style.opacity = '1';
+        navLiquid.style.transform = 'none';
+        navLiquidAnimation?.cancel();
+        navLiquidAnimation = null;
+      };
+    }
+    return;
+  }
+
+  const navBox = primaryNav.getBoundingClientRect();
+  const renderedBox = navLiquid.getBoundingClientRect();
+  const startBox = liquidIsVisible
+    ? {
+        height: renderedBox.height,
+        left: renderedBox.left - navBox.left,
+        top: renderedBox.top - navBox.top,
+        width: renderedBox.width,
+      }
+    : getNavBox(previousLink);
+  const bridgeLeft = Math.min(startBox.left, targetBox.left);
+  const bridgeRight = Math.max(startBox.left + startBox.width, targetBox.left + targetBox.width);
+  const direction = targetBox.left >= startBox.left ? 1 : -1;
+
+  setNavLiquidBox(startBox);
+  primaryNav.classList.add('is-liquid-moving');
+  navLiquidAnimation = navLiquid.animate([
+    {
+      height: `${startBox.height}px`,
+      left: `${startBox.left}px`,
+      top: `${startBox.top}px`,
+      transform: 'scale(1)',
+      width: `${startBox.width}px`,
+    },
+    {
+      height: `${Math.max(startBox.height, targetBox.height)}px`,
+      left: `${bridgeLeft}px`,
+      offset: .44,
+      top: `${Math.min(startBox.top, targetBox.top)}px`,
+      transform: 'scaleY(.78)',
+      width: `${bridgeRight - bridgeLeft}px`,
+    },
+    {
+      height: `${targetBox.height}px`,
+      left: `${targetBox.left + (direction * 7)}px`,
+      offset: .73,
+      top: `${targetBox.top}px`,
+      transform: 'scale(.9, 1.13)',
+      width: `${targetBox.width}px`,
+    },
+    {
+      height: `${targetBox.height}px`,
+      left: `${targetBox.left - (direction * 2)}px`,
+      offset: .88,
+      top: `${targetBox.top}px`,
+      transform: 'scale(1.035, .97)',
+      width: `${targetBox.width}px`,
+    },
+    {
+      height: `${targetBox.height}px`,
+      left: `${targetBox.left}px`,
+      top: `${targetBox.top}px`,
+      transform: 'scale(1)',
+      width: `${targetBox.width}px`,
+    },
+  ], { duration: 680, easing: 'cubic-bezier(.2, .84, .22, 1)', fill: 'both' });
+
+  navLiquidAnimation.onfinish = () => {
+    setNavLiquidBox(targetBox);
+    navLiquid.style.opacity = '1';
+    navLiquid.style.transform = 'none';
+    primaryNav.classList.remove('is-liquid-moving');
+    navLiquidAnimation?.cancel();
+    navLiquidAnimation = null;
+  };
+};
+
+navigationLinks.forEach((link) => {
+  link.addEventListener('click', () => {
+    navigationClickLockUntil = performance.now() + 1400;
+    moveNavLiquid(link);
+    closeMenu();
+  });
+});
 
 if ('IntersectionObserver' in window) {
   const navigationObserver = new IntersectionObserver((entries) => {
     const visible = entries
       .filter((entry) => entry.isIntersecting)
       .sort((first, second) => second.intersectionRatio - first.intersectionRatio)[0];
-    if (!visible) return;
-    navigationLinks.forEach((link) => {
-      if (link.getAttribute('href') === `#${visible.target.id}`) link.setAttribute('aria-current', 'true');
-      else link.removeAttribute('aria-current');
-    });
+    if (!visible || performance.now() < navigationClickLockUntil) return;
+    const matchingLink = navigationLinks.find((link) => link.getAttribute('href') === `#${visible.target.id}`);
+    if (matchingLink) moveNavLiquid(matchingLink);
   }, { rootMargin: '-28% 0px -56%', threshold: [0, .2, .5] });
 
   navigationSections.forEach((section) => navigationObserver.observe(section));
 }
+
+let navResizeFrame;
+window.addEventListener('resize', () => {
+  window.cancelAnimationFrame(navResizeFrame);
+  navResizeFrame = window.requestAnimationFrame(() => {
+    if (activeNavigationLink && !mobileNavigation.matches) moveNavLiquid(activeNavigationLink, false);
+  });
+}, { passive: true });
 
 const openBooking = (trigger) => {
   closeMenu();

@@ -38,6 +38,102 @@ const exercisePage = async ({ name, width, height, mobile = false }) => {
   const bodyBackground = await page.locator('body').evaluate((element) => getComputedStyle(element).backgroundColor);
   if (bodyBackground !== 'rgb(255, 255, 255)') failures.push(`${name}: page background is not white`);
   await page.locator('img').evaluateAll((images) => images.forEach((image) => { image.loading = 'eager'; }));
+
+  const bodyText = await page.locator('body').innerText();
+  if (bodyText.includes('Three studios')) failures.push(`${name}: removed hero studio-count phrase is visible`);
+
+  const heroWave = page.locator('.hero-wave');
+  if ((await heroWave.count()) !== 1) {
+    failures.push(`${name}: animated hero wave is missing`);
+  } else {
+    const waveState = await heroWave.evaluate((element) => {
+      const path = element.querySelector('path');
+      const movingElement = [element, ...element.querySelectorAll('*')]
+        .find((item) => getComputedStyle(item).animationName !== 'none');
+      return {
+        animationName: movingElement ? getComputedStyle(movingElement).animationName : 'none',
+        stroke: path ? getComputedStyle(path).stroke : 'none',
+      };
+    });
+    if (waveState.animationName === 'none') failures.push(`${name}: hero wave is not animated`);
+    if (waveState.stroke !== 'rgb(214, 0, 98)') failures.push(`${name}: hero wave is not Empress pink`);
+  }
+
+  const counterAudit = await page.evaluate(() => ({
+    serviceLabels: [...document.querySelectorAll('.service-card-copy > p')].map((item) => item.textContent.trim()),
+    leftoverCounterElements: document.querySelectorAll(
+      '.location-tabs button > span, .booking-steps li > span, .dialog-promise > span',
+    ).length,
+  }));
+  if (counterAudit.serviceLabels.some((label) => /^0?\d+\s*\//.test(label))) {
+    failures.push(`${name}: a numbered service label remains`);
+  }
+  if (counterAudit.leftoverCounterElements) {
+    failures.push(`${name}: ${counterAudit.leftoverCounterElements} decorative counter element(s) remain`);
+  }
+
+  const expectedContacts = {
+    'RNG Plaza': ['tel:+254720016178', 'instagram.com/empressbeautycare/', 'tiktok.com/@empressbeautycare', 'facebook.com/p/Empress-BeautyCare-100070468808845/'],
+    'Simara Mall': ['tel:+254720016178', 'instagram.com/empress_beautycare_2/', 'tiktok.com/@empressbeautycare2', 'facebook.com/p/Empress-Beautycare-2-100044461598491/'],
+    'Morovian Mall': ['tel:+254796350593', 'instagram.com/empressbeautycare/', 'tiktok.com/@empressbeautycare3', 'facebook.com/p/Empress-BeautyCare-100070468808845/'],
+  };
+  const contactCards = await page.locator('.branch-contact-card').evaluateAll((cards) => cards.map((card) => ({
+    branch: card.querySelector('h3')?.textContent.trim() || '',
+    destinations: [...card.querySelectorAll('a.contact-method')].map((link) => link.getAttribute('href') || ''),
+    icons: [...card.querySelectorAll('a.contact-method use')].map((icon) => icon.getAttribute('href') || ''),
+  })));
+  if (contactCards.length !== 3) failures.push(`${name}: expected 3 branch contact cards, found ${contactCards.length}`);
+  for (const card of contactCards) {
+    const destinations = expectedContacts[card.branch];
+    if (!destinations) {
+      failures.push(`${name}: unexpected branch contact card “${card.branch}”`);
+      continue;
+    }
+    if (card.destinations.length !== 4) failures.push(`${name}: ${card.branch} does not have 4 icon contact links`);
+    for (const destination of destinations) {
+      if (!card.destinations.some((href) => href.includes(destination))) {
+        failures.push(`${name}: ${card.branch} is missing contact destination ${destination}`);
+      }
+    }
+    for (const icon of ['#icon-phone', '#icon-instagram', '#icon-tiktok', '#icon-facebook']) {
+      if (!card.icons.includes(icon)) failures.push(`${name}: ${card.branch} is missing ${icon.slice(1)} contact icon`);
+    }
+  }
+
+  if (!mobile) {
+    await page.addStyleTag({ content: 'html { scroll-behavior: auto !important; }' });
+    await page.locator('.primary-nav a[href="#services"]').evaluate((link) => link.click());
+    await page.waitForTimeout(900);
+    await page.locator('.primary-nav a[href="#prices"]').evaluate((link) => link.click());
+    await page.waitForTimeout(80);
+    const liquidMotion = await page.locator('[data-nav-liquid]').evaluate((element) => ({
+      background: getComputedStyle(element).backgroundColor,
+      opacity: Number.parseFloat(getComputedStyle(element).opacity),
+      running: element.getAnimations().some((animation) => animation.playState === 'running'),
+    }));
+    if (liquidMotion.background !== 'rgb(214, 0, 98)' || liquidMotion.opacity < .8) {
+      failures.push(`${name}: liquid navigation fill is not visibly pink`);
+    }
+    if (!liquidMotion.running) failures.push(`${name}: navigation fill did not animate between links`);
+    await page.waitForTimeout(900);
+    const navigationState = await page.evaluate(() => {
+      const link = document.querySelector('.primary-nav a[href="#prices"]');
+      const liquid = document.querySelector('[data-nav-liquid]');
+      if (!link || !liquid) return null;
+      const linkBox = link.getBoundingClientRect();
+      const liquidBox = liquid.getBoundingClientRect();
+      return {
+        active: link.getAttribute('aria-current'),
+        centerDelta: Math.abs((linkBox.left + linkBox.width / 2) - (liquidBox.left + liquidBox.width / 2)),
+        color: getComputedStyle(link).color,
+      };
+    });
+    if (!navigationState || navigationState.active !== 'true') failures.push(`${name}: clicked Pricing navigation link did not become active`);
+    if (navigationState && (navigationState.centerDelta > 10 || navigationState.color !== 'rgb(255, 255, 255)')) {
+      failures.push(`${name}: pink navigation fill did not settle beneath the active link`);
+    }
+  }
+
   await page.evaluate(async () => {
     const pause = (time) => new Promise((resolvePause) => setTimeout(resolvePause, time));
     for (let y = 0; y < document.documentElement.scrollHeight; y += Math.max(420, innerHeight * 0.72)) {
@@ -66,6 +162,17 @@ const exercisePage = async ({ name, width, height, mobile = false }) => {
     await page.locator('.menu-toggle').click();
     const menuIsOpen = await page.locator('body').evaluate((element) => element.classList.contains('menu-open'));
     if (!menuIsOpen) failures.push(`${name}: mobile menu did not open`);
+    await page.locator('.primary-nav a[href="#services"]').click();
+    await page.waitForTimeout(160);
+    await page.locator('.menu-toggle').click();
+    const activeMobileFill = await page.locator('.primary-nav a[href="#services"]').evaluate((link) => ({
+      active: link.getAttribute('aria-current'),
+      background: getComputedStyle(link).backgroundColor,
+      color: getComputedStyle(link).color,
+    }));
+    if (activeMobileFill.active !== 'true' || activeMobileFill.background !== 'rgb(214, 0, 98)' || activeMobileFill.color !== 'rgb(255, 255, 255)') {
+      failures.push(`${name}: active mobile navigation link is not filled pink`);
+    }
     await page.keyboard.press('Escape');
   }
 
@@ -118,4 +225,4 @@ if (failures.length) {
 }
 
 console.log('✓ Desktop and mobile layouts captured');
-console.log('✓ Loader, white canvas, images, menu, map tabs, booking dialog, and Ruiru WhatsApp routing passed');
+console.log('✓ Loader, hero wave, liquid navigation, branch contacts, white canvas, images, map tabs, booking, and WhatsApp routing passed');

@@ -11,13 +11,17 @@ The supplied Apple archive was served from `www.apple.com/www.apple.com` and its
 ## What is included
 
 - White, product-led responsive UI derived from the supplied local Apple snapshot, adapted for salon discovery and booking
+- Thin animated Empress-pink wave in the hero, with reduced-motion support
 - Supplied Empress logo lockup in the navigation, with its woman mark used for the loader and favicon
+- Pink active navigation pill with a liquid, bouncy hand-off between desktop section links and a clear filled state on mobile
 - Service discovery for braids, locs, nails, skin/body care, and cuts/colour
 - Clearly qualified “from” pricing based on recent published offers
 - Individual cards, phone links, directions, and WhatsApp routing for all three branches
+- Branch contact cards with phone, Instagram, TikTok, and Facebook icons; branch-specific accounts are used where verified, while shared brand accounts are labelled honestly
 - Interactive, keyboard-friendly branch tabs with an embedded map and location-specific actions
 - Real, source-linked public TikTok comments without invented stars or ratings
 - Accessible booking dialog that builds a structured WhatsApp message
+- Plain-language service, location, and booking labels with ornamental numeric counters removed; factual prices, phone numbers, room numbers, and dates remain intact
 - Keyboard-friendly price tabs, mobile navigation, accordion FAQs, and reduced-motion support
 - Asset-aware loading screen that releases after the local font and hero image are ready, with a fail-safe
 - Local, licensed webfonts and compressed WebP media
@@ -56,10 +60,10 @@ npm run test:ui
 
 This repository is a sales-ready private concept, not yet an Empress-commissioned public website. Confirm the following with the business owner before deployment:
 
-1. Written approval to reuse each image, plus photographer and identifiable client/model consent where applicable
-2. Original high-resolution logo and salon photography to replace social thumbnail crops
-3. Current prices, opening and closing times, and any happy-hour terms
-4. Exact room notation for RNG Plaza (`OS3`) and each branch’s preferred directions link
-5. Final domain, analytics/privacy choices, and the staff member responsible for updates
+- Written approval to reuse each image, plus photographer and identifiable client/model consent where applicable
+- Original high-resolution logo and salon photography to replace social thumbnail crops
+- Current prices, opening and closing times, and any happy-hour terms
+- Exact room notation for RNG Plaza (`OS3`) and each branch’s preferred directions link
+- Final domain, analytics/privacy choices, and the staff member responsible for updates
 
 No assets, source code, or proprietary fonts from the supplied Apple or barbershop references are included in this build.

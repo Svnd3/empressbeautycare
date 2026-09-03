@@ -46,11 +46,12 @@ These are consistent across the current Instagram bio and recent official TikTok
 | TikTok | [@empressbeautycare](https://www.tiktok.com/@empressbeautycare) | 216.5K followers; 1.4M likes |
 | TikTok | [@empressbeautycare2](https://www.tiktok.com/@empressbeautycare2) | 100.3K followers; 378.2K likes; Simara Mall |
 | TikTok | [@empressbeautycare3](https://www.tiktok.com/@empressbeautycare3) | 69.5K followers; 217.7K likes; Ruiru |
-| Facebook | [Main page](https://www.facebook.com/381928112232071/) | Current page/content connection found |
+| Facebook | [Main brand page](https://www.facebook.com/p/Empress-BeautyCare-100070468808845/) | Brand-wide page; its current profile copy lists multiple branches |
+| Facebook | [Empress Beautycare 2](https://www.facebook.com/p/Empress-Beautycare-2-100044461598491/) | Simara-led page; its current profile copy is also brand-wide |
 
-Follower totals can overlap and change. The website therefore uses the durable claims “200K+ TikTok community” and “50K+ Instagram community,” not a combined unique-audience number.
+Follower totals can overlap and change. The homepage therefore avoids decorative audience counters; the dated figures remain here only as research context.
 
-No credible official X, YouTube, LinkedIn, Pinterest, public email address, or standalone website was found. The Instagram profiles are public but not platform-verified; the site does not describe them as verified.
+No credible official X, YouTube, LinkedIn, Pinterest, public email address, or standalone website was found. The Instagram profiles are public but not platform-verified; the site does not describe them as verified. TikTok has a branch-branded handle for each studio, while Instagram and Facebook are primarily brand-wide. The contact cards label shared profiles honestly instead of presenting them as branch-exclusive.
 
 An alternate Instagram handle referencing “Moi Avenue” appeared in search results, but its current ownership/status could not be confirmed. Older Facebook naming also appears to pre-date the Simara Mall move. Neither is presented as a current branch source.
 
