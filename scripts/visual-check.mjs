@@ -54,6 +54,7 @@ const exercisePage = async ({ name, width, height, mobile = false }) => {
       const expectedShape = expectsMobileShape ? mobileShape : desktopShape;
       const alternateShape = expectsMobileShape ? desktopShape : mobileShape;
       const copy = stage.querySelector('.hero-copy');
+      const image = stage.querySelector('.hero-main-image img');
       const heading = copy?.querySelector('h1');
       const intro = copy?.querySelector('.hero-intro');
       const isRendered = (element) => {
@@ -66,19 +67,26 @@ const exercisePage = async ({ name, width, height, mobile = false }) => {
       const stageBox = stage.getBoundingClientRect();
       const shapeBox = expectedShape?.getBoundingClientRect();
       const copyBox = copy?.getBoundingClientRect();
+      const imageBox = image?.getBoundingClientRect();
       const headingBox = heading?.getBoundingClientRect();
       const pinkPath = [...(expectedShape?.querySelectorAll('path') ?? [])]
         .find((path) => getComputedStyle(path).fill === 'rgb(214, 0, 98)');
 
       let copyCenterIsInsidePanel = false;
+      let panelAnchoredRight = false;
+      let panelLeavesImageVisibleLeft = false;
+      let panelCoversMiddle = false;
       if (pinkPath && copyBox && typeof pinkPath.isPointInFill === 'function') {
         const matrix = pinkPath.getScreenCTM();
         if (matrix) {
-          const screenPoint = new DOMPoint(
+          const pointIsInPanel = (x, y) => pinkPath.isPointInFill(new DOMPoint(x, y).matrixTransform(matrix.inverse()));
+          copyCenterIsInsidePanel = pointIsInPanel(
             copyBox.left + copyBox.width / 2,
             copyBox.top + copyBox.height / 2,
           );
-          copyCenterIsInsidePanel = pinkPath.isPointInFill(screenPoint.matrixTransform(matrix.inverse()));
+          panelAnchoredRight = pointIsInPanel(stageBox.right - 2, stageBox.top + stageBox.height / 2);
+          panelLeavesImageVisibleLeft = !pointIsInPanel(stageBox.left + 2, stageBox.top + stageBox.height / 2);
+          panelCoversMiddle = pointIsInPanel(stageBox.left + stageBox.width / 2, stageBox.top + stageBox.height / 2);
         }
       }
 
@@ -109,10 +117,20 @@ const exercisePage = async ({ name, width, height, mobile = false }) => {
         headingIsLight: isLightText(heading),
         hasRealCopy: Boolean(heading?.textContent.trim() && intro?.textContent.trim()),
         introIsLight: isLightText(intro),
+        imageCoversStage: Boolean(imageBox
+          && Math.abs(imageBox.left - stageBox.left) <= 1
+          && Math.abs(imageBox.top - stageBox.top) <= 1
+          && Math.abs(imageBox.width - stageBox.width) <= 1
+          && Math.abs(imageBox.height - stageBox.height) <= 1
+          && getComputedStyle(image).objectFit === 'cover'),
         mobileShapeExists: Boolean(mobileShape?.querySelector('path')),
+        panelAnchoredRight,
+        panelCoversMiddle,
         panelFill: pinkPath ? getComputedStyle(pinkPath).fill : 'none',
         panelHeightRatio: shapeBox && stageBox.height ? shapeBox.height / stageBox.height : 0,
+        panelLeavesImageVisibleLeft,
         panelWidthRatio: shapeBox && stageBox.width ? shapeBox.width / stageBox.width : 0,
+        stageIsFullBleed: Math.abs(stageBox.left) <= 1 && Math.abs(stageBox.right - innerWidth) <= 1,
       };
     }, mobile);
 
@@ -125,6 +143,12 @@ const exercisePage = async ({ name, width, height, mobile = false }) => {
     if (heroPanelState.panelFill !== 'rgb(214, 0, 98)') failures.push(`${name}: visible hero panel is not Empress pink`);
     if (heroPanelState.panelWidthRatio < .45 || heroPanelState.panelHeightRatio < .55) {
       failures.push(`${name}: pink hero panel is too small to form the intended large overlay`);
+    }
+    if (!heroPanelState.stageIsFullBleed || !heroPanelState.imageCoversStage) {
+      failures.push(`${name}: salon image does not cover the full-bleed hero`);
+    }
+    if (!heroPanelState.panelAnchoredRight || !heroPanelState.panelCoversMiddle || !heroPanelState.panelLeavesImageVisibleLeft) {
+      failures.push(`${name}: pink panel is not the intended oversized reverse-D anchored to the right`);
     }
     if (!heroPanelState.copyInStage || !heroPanelState.hasRealCopy) failures.push(`${name}: real hero copy is not inside the hero stage`);
     if (heroPanelState.copyOverlapRatio < .85 || !heroPanelState.copyCenterIsInsidePanel) {
