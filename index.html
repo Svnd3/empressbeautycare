@@ -1,0 +1,517 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#f6f0e7" />
+    <meta
+      name="description"
+      content="Braids, locs, nails, facials, massage, waxing and cuts at Empress Beautycare in Nairobi CBD and Ruiru. Request your appointment on WhatsApp."
+    />
+    <meta property="og:title" content="Empress Beautycare — Nairobi &amp; Ruiru" />
+    <meta
+      property="og:description"
+      content="Your whole beauty routine, under one roof. Visit one of three Empress Beautycare studios."
+    />
+    <meta property="og:image" content="./images/salon.webp" />
+    <meta property="og:type" content="website" />
+    <link rel="icon" href="./favicon.svg" type="image/svg+xml" />
+    <link rel="preload" href="./fonts/manrope-latin.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="./fonts/dm-serif-display-latin.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="stylesheet" href="./styles.css" />
+    <title>Empress Beautycare | Nairobi CBD &amp; Ruiru</title>
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "Organization",
+            "@id": "#empress",
+            "name": "Empress Beautycare",
+            "description": "Beauty and personal care studios in Nairobi CBD and Ruiru.",
+            "telephone": "+254720016178",
+            "sameAs": [
+              "https://www.instagram.com/empressbeautycare/",
+              "https://www.tiktok.com/@empressbeautycare",
+              "https://www.facebook.com/100070468808845/"
+            ]
+          },
+          {
+            "@type": "BeautySalon",
+            "name": "Empress Beautycare — RNG Plaza",
+            "parentOrganization": { "@id": "#empress" },
+            "telephone": "+254720016178",
+            "address": {
+              "@type": "PostalAddress",
+              "streetAddress": "RNG Plaza, Ronald Ngala Street, 4th Floor, Room OS3",
+              "addressLocality": "Nairobi",
+              "addressCountry": "KE"
+            }
+          },
+          {
+            "@type": "BeautySalon",
+            "name": "Empress Beautycare — Simara Mall",
+            "parentOrganization": { "@id": "#empress" },
+            "telephone": "+254720016178",
+            "address": {
+              "@type": "PostalAddress",
+              "streetAddress": "Simara Mall, Tom Mboya Street, 7th Floor, Room 8",
+              "addressLocality": "Nairobi",
+              "addressCountry": "KE"
+            }
+          },
+          {
+            "@type": "BeautySalon",
+            "name": "Empress Beautycare — Morovian Mall",
+            "parentOrganization": { "@id": "#empress" },
+            "telephone": "+254796350593",
+            "address": {
+              "@type": "PostalAddress",
+              "streetAddress": "Morovian Mall, 1st Floor, Room F16",
+              "addressLocality": "Ruiru",
+              "addressCountry": "KE"
+            }
+          }
+        ]
+      }
+    </script>
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to content</a>
+
+    <div class="notice-bar">
+      <p>Open daily <span aria-hidden="true">•</span> Walk-ins welcome</p>
+      <button class="text-button" type="button" data-open-booking>Request a slot</button>
+    </div>
+
+    <header class="site-header" data-header>
+      <div class="nav-shell">
+        <a class="brand" href="#top">
+          <span class="brand-mark" aria-hidden="true">E</span>
+          <span class="brand-name">Empress <small>Beautycare</small></span>
+        </a>
+
+        <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="primary-nav">
+          <span></span><span></span><span class="sr-only">Open menu</span>
+        </button>
+
+        <nav class="primary-nav" id="primary-nav" aria-label="Primary navigation">
+          <a href="#services">Services</a>
+          <a href="#prices">Price guide</a>
+          <a href="#work">Our work</a>
+          <a href="#branches">Branches</a>
+          <a href="#answers">Good to know</a>
+        </nav>
+
+        <button class="button button--small button--dark nav-book" type="button" data-open-booking>
+          Book on WhatsApp
+        </button>
+      </div>
+    </header>
+
+    <main id="main">
+      <section class="hero" id="top">
+        <div class="hero-copy reveal">
+          <p class="eyebrow">Nairobi CBD <span aria-hidden="true">/</span> Ruiru</p>
+          <h1>Your whole beauty routine, <em>under one roof.</em></h1>
+          <p class="hero-intro">
+            Braids, locs, nails, skin, body care and cuts—done by one team across three easy-to-reach studios.
+          </p>
+          <div class="button-row">
+            <button class="button button--gold" type="button" data-open-booking>Request an appointment</button>
+            <a class="button button--ghost" href="#services">Explore services</a>
+          </div>
+          <p class="microcopy">Your request is confirmed when the Empress team replies.</p>
+        </div>
+
+        <div class="hero-visual reveal" data-delay="1">
+          <figure class="hero-main-image">
+            <img
+              src="./images/salon.webp"
+              width="1080"
+              height="1080"
+              alt="The reception and styling area inside Empress Beautycare"
+              fetchpriority="high"
+            />
+          </figure>
+          <figure class="hero-detail hero-detail--one">
+            <img src="./images/nails.webp" width="900" height="910" alt="A finished Empress nail set" />
+          </figure>
+          <figure class="hero-detail hero-detail--two">
+            <img src="./images/braids.webp" width="900" height="950" alt="Long knotless braids styled at Empress Beautycare" />
+          </figure>
+          <div class="hero-note">
+            <span class="hero-note-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><path d="M12 21s7-4.7 7-11a7 7 0 1 0-14 0c0 6.3 7 11 7 11Z"/><circle cx="12" cy="10" r="2.4"/></svg>
+            </span>
+            <span><strong>3 studios</strong>Nairobi CBD &amp; Ruiru</span>
+          </div>
+        </div>
+
+        <div class="social-proof" role="group" aria-label="Empress Beautycare at a glance">
+          <div><strong>200K+</strong><span>TikTok community</span></div>
+          <div><strong>50K+</strong><span>Instagram community</span></div>
+          <div><strong>7 days</strong><span>Walk-ins welcome</span></div>
+        </div>
+      </section>
+
+      <nav class="service-rail" aria-label="Browse service categories">
+        <a href="#braids"><span aria-hidden="true">B</span>Braids</a>
+        <a href="#locs"><span aria-hidden="true">L</span>Locs</a>
+        <a href="#nails"><span aria-hidden="true">N</span>Nails</a>
+        <a href="#care"><span aria-hidden="true">S</span>Skin</a>
+        <a href="#care"><span aria-hidden="true">M</span>Massage</a>
+        <a href="#cuts"><span aria-hidden="true">C</span>Cuts</a>
+      </nav>
+
+      <section class="section services-section" id="services">
+        <div class="section-heading reveal">
+          <div>
+            <p class="eyebrow">All the essentials</p>
+            <h2>Come for one thing.<br /><em>Leave feeling finished.</em></h2>
+          </div>
+          <p>
+            Build a beauty day around you. Start with hair, add nails or skin care, and request it all in one message.
+          </p>
+        </div>
+
+        <div class="service-scroller" data-scroller>
+          <article class="service-card service-card--image reveal" id="braids">
+            <img src="./images/braids.webp" width="900" height="950" alt="Neat long braids finished at Empress" loading="lazy" />
+            <div class="service-card-copy">
+              <p>01 / Hair</p>
+              <h3>Braids &amp; twists</h3>
+              <span>Knotless, boho, Spanish, cornrows, curls and more.</span>
+              <button type="button" class="card-link" data-open-booking data-service="Braids &amp; twists">Request this service <i aria-hidden="true">↗</i></button>
+            </div>
+          </article>
+
+          <article class="service-card service-card--image reveal" id="locs" data-delay="1">
+            <img src="./images/locs.webp" width="620" height="560" alt="A long loc style by Empress Beautycare" loading="lazy" />
+            <div class="service-card-copy">
+              <p>02 / Hair</p>
+              <h3>Locs &amp; natural hair</h3>
+              <span>Starter, artificial, butterfly, invisible and retouch.</span>
+              <button type="button" class="card-link" data-open-booking data-service="Locs &amp; natural hair">Request this service <i aria-hidden="true">↗</i></button>
+            </div>
+          </article>
+
+          <article class="service-card service-card--image reveal" id="nails" data-delay="2">
+            <img src="./images/nails.webp" width="900" height="910" alt="Fresh manicure and nail art by Empress Beautycare" loading="lazy" />
+            <div class="service-card-copy">
+              <p>03 / Finish</p>
+              <h3>Nails</h3>
+              <span>Gel, tips, manicure, pedicure and nail art.</span>
+              <button type="button" class="card-link" data-open-booking data-service="Nails">Request this service <i aria-hidden="true">↗</i></button>
+            </div>
+          </article>
+
+          <article class="service-card service-card--plain reveal" id="care">
+            <div class="service-monogram" aria-hidden="true">Care</div>
+            <div class="service-card-copy">
+              <p>04 / Reset</p>
+              <h3>Skin &amp; body</h3>
+              <span>Facials, massage, waxing and body scrub.</span>
+              <button type="button" class="card-link" data-open-booking data-service="Skin &amp; body care">Request this service <i aria-hidden="true">↗</i></button>
+            </div>
+          </article>
+
+          <article class="service-card service-card--image reveal" id="cuts">
+            <img src="./images/haircut.webp" width="900" height="760" alt="A close cropped haircut finished at Empress" loading="lazy" />
+            <div class="service-card-copy">
+              <p>05 / Shape</p>
+              <h3>Cuts &amp; colour</h3>
+              <span>Haircuts, dye, texturising and styling.</span>
+              <button type="button" class="card-link" data-open-booking data-service="Cuts &amp; colour">Request this service <i aria-hidden="true">↗</i></button>
+            </div>
+          </article>
+        </div>
+
+        <div class="scroller-controls" role="group" aria-label="Service carousel controls">
+          <button type="button" data-scroll="back" aria-label="Previous services">←</button>
+          <button type="button" data-scroll="forward" aria-label="Next services">→</button>
+        </div>
+      </section>
+
+      <section class="section prices-section" id="prices">
+        <div class="price-intro reveal">
+          <p class="eyebrow eyebrow--light">Recent offer guide</p>
+          <h2>Know the starting point <em>before you sit down.</em></h2>
+          <p>Selected starting prices seen in Empress Beautycare’s recent social offers.</p>
+          <button class="button button--cream" type="button" data-open-booking>Ask for today’s price</button>
+        </div>
+
+        <div class="price-menu reveal" data-delay="1">
+          <div class="price-tabs" role="tablist" aria-label="Price categories">
+            <button id="tab-braids" type="button" role="tab" aria-selected="true" aria-controls="panel-braids" data-price-tab="braids">Braids</button>
+            <button id="tab-locs" type="button" role="tab" aria-selected="false" aria-controls="panel-locs" data-price-tab="locs" tabindex="-1">Locs</button>
+            <button id="tab-nails" type="button" role="tab" aria-selected="false" aria-controls="panel-nails" data-price-tab="nails" tabindex="-1">Nails</button>
+            <button id="tab-care" type="button" role="tab" aria-selected="false" aria-controls="panel-care" data-price-tab="care" tabindex="-1">Care</button>
+          </div>
+
+          <div class="price-panel" id="panel-braids" role="tabpanel" aria-labelledby="tab-braids" data-price-panel="braids">
+            <div><span>Knotless braids</span><strong>from KSh 1,300</strong></div>
+            <div><span>Spanish twists</span><strong>from KSh 1,800</strong></div>
+            <div><span>Boho braids</span><strong>from KSh 1,800</strong></div>
+            <div><span>French curls</span><strong>from KSh 3,000</strong></div>
+          </div>
+          <div class="price-panel" id="panel-locs" role="tabpanel" aria-labelledby="tab-locs" data-price-panel="locs" hidden>
+            <div><span>Invisible locs</span><strong>from KSh 2,500</strong></div>
+            <div><span>Artificial locs</span><strong>from KSh 3,000</strong></div>
+            <div><span>Butterfly locs</span><strong>from KSh 3,500</strong></div>
+            <div><span>Natural mini twists</span><strong>from KSh 2,500</strong></div>
+          </div>
+          <div class="price-panel" id="panel-nails" role="tabpanel" aria-labelledby="tab-nails" data-price-panel="nails" hidden>
+            <div><span>Gel hands + toes</span><strong>from KSh 700</strong></div>
+            <div><span>Gel pedicure</span><strong>from KSh 800</strong></div>
+            <div><span>Tips</span><strong>from KSh 1,000</strong></div>
+            <div><span>Mani-pedi combo</span><strong>from KSh 1,300</strong></div>
+          </div>
+          <div class="price-panel" id="panel-care" role="tabpanel" aria-labelledby="tab-care" data-price-panel="care" hidden>
+            <div><span>Haircut</span><strong>from KSh 300</strong></div>
+            <div><span>Facial</span><strong>from KSh 1,000</strong></div>
+            <div><span>Haircut + dye</span><strong>from KSh 1,000</strong></div>
+            <div><span>Massage</span><strong>from KSh 2,000</strong></div>
+          </div>
+
+          <p class="price-note">Offers and final prices can change with length, size, product and style. Confirm your quote on WhatsApp before travelling.</p>
+        </div>
+      </section>
+
+      <section class="section work-section" id="work">
+        <div class="section-heading section-heading--compact reveal">
+          <div>
+            <p class="eyebrow">Made at Empress</p>
+            <h2>Real work. <em>Real range.</em></h2>
+          </div>
+          <a class="inline-link" href="https://www.instagram.com/empressbeautycare/" target="_blank" rel="noreferrer">See the latest on Instagram <span aria-hidden="true">↗</span></a>
+        </div>
+
+        <div class="lookbook">
+          <figure class="lookbook-item lookbook-item--tall reveal">
+            <img src="./images/twists.webp" width="900" height="1150" alt="Textured twists styled at Empress Beautycare" loading="lazy" />
+            <figcaption>Twists <span>Texture, length, movement</span></figcaption>
+          </figure>
+          <figure class="lookbook-item reveal" data-delay="1">
+            <img src="./images/nails.webp" width="900" height="910" alt="Detailed nail finish from Empress Beautycare" loading="lazy" />
+            <figcaption>Nails <span>Fresh sets, clean details</span></figcaption>
+          </figure>
+          <figure class="lookbook-item reveal" data-delay="2">
+            <img src="./images/braids.webp" width="900" height="950" alt="Long braids styled at Empress Beautycare" loading="lazy" />
+            <figcaption>Braids <span>Neat from root to finish</span></figcaption>
+          </figure>
+          <figure class="lookbook-item lookbook-item--wide reveal">
+            <img src="./images/salon.webp" width="1080" height="1080" alt="Empress Beautycare salon interior" loading="lazy" />
+            <figcaption>At Empress <span>One stop. Three studios.</span></figcaption>
+          </figure>
+        </div>
+      </section>
+
+      <section class="section branches-section" id="branches">
+        <div class="branch-heading reveal">
+          <p class="eyebrow">Find your closest studio</p>
+          <h2>Three branches.<br /><em>One Empress standard.</em></h2>
+          <p>Open daily with walk-ins welcome. Message first to confirm today’s closing time and availability.</p>
+        </div>
+
+        <div class="branch-list">
+          <article class="branch-card reveal">
+            <div class="branch-number">01</div>
+            <div>
+              <p>Nairobi CBD</p>
+              <h3>RNG Plaza</h3>
+              <address>Ronald Ngala Street<br />4th floor, Room OS3</address>
+            </div>
+            <div class="branch-actions">
+              <a href="tel:+254720016178">0720&nbsp;016&nbsp;178</a>
+              <a href="https://www.google.com/maps/search/?api=1&amp;query=Empress%20BeautyCare%20RNG%20Plaza%20Ronald%20Ngala%20Street%20Nairobi" target="_blank" rel="noreferrer">Directions <span aria-hidden="true">↗</span></a>
+              <button type="button" data-open-booking data-branch="rng">Choose RNG</button>
+            </div>
+          </article>
+
+          <article class="branch-card reveal" data-delay="1">
+            <div class="branch-number">02</div>
+            <div>
+              <p>Nairobi CBD</p>
+              <h3>Simara Mall</h3>
+              <address>Opp. National Archives<br />7th floor, Room 8</address>
+            </div>
+            <div class="branch-actions">
+              <a href="tel:+254720016178">0720&nbsp;016&nbsp;178</a>
+              <a href="https://www.google.com/maps/search/?api=1&amp;query=Empress%20BeautyCare%20Simara%20Mall%20Tom%20Mboya%20Street%20Nairobi" target="_blank" rel="noreferrer">Directions <span aria-hidden="true">↗</span></a>
+              <button type="button" data-open-booking data-branch="simara">Choose Simara</button>
+            </div>
+          </article>
+
+          <article class="branch-card reveal" data-delay="2">
+            <div class="branch-number">03</div>
+            <div>
+              <p>Ruiru</p>
+              <h3>Morovian Mall</h3>
+              <address>Next to Zetech University<br />1st floor, Room F16</address>
+            </div>
+            <div class="branch-actions">
+              <a href="tel:+254796350593">0796&nbsp;350&nbsp;593</a>
+              <a href="https://www.google.com/maps/search/?api=1&amp;query=Empress%20BeautyCare%20Morovian%20Mall%20Ruiru%20Zetech" target="_blank" rel="noreferrer">Directions <span aria-hidden="true">↗</span></a>
+              <button type="button" data-open-booking data-branch="ruiru">Choose Ruiru</button>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section class="section booking-story" aria-label="How booking works">
+        <div class="booking-story-intro reveal">
+          <p class="eyebrow">No endless back-and-forth</p>
+          <h2>Tell us what you need in <em>one clean message.</em></h2>
+          <button class="button button--gold" type="button" data-open-booking>Build my request</button>
+        </div>
+        <ol class="booking-steps reveal" data-delay="1">
+          <li><span>01</span><strong>Choose your branch</strong><p>RNG Plaza, Simara Mall or Ruiru.</p></li>
+          <li><span>02</span><strong>Add your service</strong><p>Include your preferred date, time and style notes.</p></li>
+          <li><span>03</span><strong>Send on WhatsApp</strong><p>The team replies to confirm the slot and final quote.</p></li>
+        </ol>
+      </section>
+
+      <section class="section faq-section" id="answers">
+        <div class="faq-intro reveal">
+          <p class="eyebrow">Good to know</p>
+          <h2>A smoother visit <em>starts here.</em></h2>
+          <p>Still unsure? Call <a href="tel:+254720016178">0720&nbsp;016&nbsp;178</a> or send a booking request.</p>
+        </div>
+
+        <div class="faq-list reveal" data-delay="1">
+          <details>
+            <summary>Do you accept walk-ins?<span aria-hidden="true"></span></summary>
+            <p>Yes. Walk-ins are welcome, subject to stylist and service availability. A quick WhatsApp message helps reduce your wait.</p>
+          </details>
+          <details>
+            <summary>How do I book?<span aria-hidden="true"></span></summary>
+            <p>Choose your branch and service in the booking form. It creates a ready-to-send WhatsApp message; your slot is confirmed once the Empress team replies.</p>
+          </details>
+          <details>
+            <summary>What time do you close?<span aria-hidden="true"></span></summary>
+            <p>The studios are open daily, but closing times can vary. Confirm the day’s hours on WhatsApp before setting off.</p>
+          </details>
+          <details>
+            <summary>Can I request more than one service?<span aria-hidden="true"></span></summary>
+            <p>Absolutely. Select the closest category, then list every service you want in the notes so the team can plan your visit.</p>
+          </details>
+          <details>
+            <summary>Are the prices on this page final?<span aria-hidden="true"></span></summary>
+            <p>They are starting points from recent social offers. Hair length, product, size and style can affect the final quote, so confirm before travelling.</p>
+          </details>
+        </div>
+      </section>
+
+      <section class="final-cta">
+        <div class="final-cta-copy reveal">
+          <p class="eyebrow eyebrow--light">Your chair is waiting</p>
+          <h2>One message.<br /><em>Your next look.</em></h2>
+          <p>Pick a studio, tell us what you want, and let the Empress team take it from there.</p>
+          <button class="button button--cream" type="button" data-open-booking>Request a slot</button>
+        </div>
+        <div class="final-cta-mark" aria-hidden="true">E</div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="footer-brand">
+        <a class="brand brand--footer" href="#top" title="Back to the top">
+          <span class="brand-mark" aria-hidden="true">E</span>
+          <span class="brand-name">Empress <small>Beautycare</small></span>
+        </a>
+        <p>Beauty, cosmetic &amp; personal care<br />Nairobi CBD · Ruiru</p>
+      </div>
+      <div class="footer-links">
+        <div><p>Visit</p><a href="#branches">RNG Plaza</a><a href="#branches">Simara Mall</a><a href="#branches">Morovian Mall</a></div>
+        <div><p>Follow</p><a href="https://www.instagram.com/empressbeautycare/" target="_blank" rel="noreferrer">Instagram ↗</a><a href="https://www.tiktok.com/@empressbeautycare" target="_blank" rel="noreferrer">TikTok ↗</a><a href="https://www.facebook.com/100070468808845/" target="_blank" rel="noreferrer">Facebook ↗</a></div>
+        <div><p>Contact</p><a href="tel:+254720016178">0720&nbsp;016&nbsp;178</a><a href="tel:+254796350593">0796&nbsp;350&nbsp;593</a><button type="button" data-open-booking>WhatsApp us ↗</button></div>
+      </div>
+      <div class="footer-bottom">
+        <span>© <span data-year></span> Empress Beautycare</span>
+        <span>Prices and availability are confirmed by the salon.</span>
+      </div>
+    </footer>
+
+    <div class="mobile-booking-bar" role="group" aria-label="Quick booking">
+      <a href="tel:+254720016178">Call</a>
+      <button type="button" data-open-booking>Book on WhatsApp</button>
+    </div>
+
+    <dialog class="booking-dialog" id="booking-dialog" aria-labelledby="booking-title">
+      <div class="dialog-layout">
+        <div class="dialog-aside">
+          <button class="dialog-close dialog-close--light" type="button" data-close-booking aria-label="Close booking form">×</button>
+          <p class="eyebrow eyebrow--light">Booking request</p>
+          <h2 id="booking-title">Let’s get you <em>in the chair.</em></h2>
+          <p>Complete the details once. We’ll turn them into a clear WhatsApp message for the right branch.</p>
+          <div class="dialog-promise"><span>01</span><p><strong>No payment here</strong>Confirm price directly with the team.</p></div>
+          <div class="dialog-promise"><span>02</span><p><strong>No false confirmation</strong>Your slot is held only after a reply.</p></div>
+        </div>
+
+        <form class="booking-form" id="booking-form">
+          <button class="dialog-close" type="button" data-close-booking aria-label="Close booking form">×</button>
+          <div class="form-heading"><span>Request details</span><small>All fields marked * are required</small></div>
+
+          <label>
+            Your name *
+            <input type="text" name="name" autocomplete="name" required placeholder="e.g. Wanjiku" />
+          </label>
+
+          <label>
+            Choose a branch *
+            <select name="branch" required>
+              <option value="">Select a studio</option>
+              <option value="rng">RNG Plaza — Nairobi CBD</option>
+              <option value="simara">Simara Mall — Nairobi CBD</option>
+              <option value="ruiru">Morovian Mall — Ruiru</option>
+            </select>
+          </label>
+
+          <label>
+            Service *
+            <select name="service" required>
+              <option value="">What would you like done?</option>
+              <option>Braids &amp; twists</option>
+              <option>Locs &amp; natural hair</option>
+              <option>Nails</option>
+              <option>Skin &amp; body care</option>
+              <option>Cuts &amp; colour</option>
+              <option>Multiple services</option>
+              <option>Something else</option>
+            </select>
+          </label>
+
+          <div class="form-row">
+            <label>
+              Preferred date *
+              <input type="date" name="date" required />
+            </label>
+            <label>
+              Preferred time
+              <input type="time" name="time" />
+            </label>
+          </div>
+
+          <label>
+            Style or service notes
+            <textarea name="notes" rows="3" placeholder="Style name, length, colour, size, or extra services…"></textarea>
+          </label>
+
+          <label class="consent-row">
+            <input type="checkbox" name="understood" required />
+            <span>I understand this sends a request, not a confirmed appointment. *</span>
+          </label>
+
+          <button class="button button--dark form-submit" type="submit">
+            Continue to WhatsApp
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 16 16 8M9 8h7v7"/></svg>
+          </button>
+          <p class="form-status" role="status" aria-live="polite"></p>
+        </form>
+      </div>
+    </dialog>
+
+    <script type="module" src="./script.js"></script>
+  </body>
+</html>

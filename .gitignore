@@ -1,0 +1,11 @@
+node_modules/
+dist/
+reports/
+.DS_Store
+
+# Local design references supplied for visual study only.
+barbershopdesign/
+www.apple.com/
+
+# Raw social-media downloads are retained locally for crop provenance only.
+public/images/source/

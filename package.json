@@ -1,0 +1,17 @@
+{
+  "name": "empress-beautycare",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "check": "node scripts/check-site.mjs",
+    "test:ui": "node scripts/visual-check.mjs"
+  },
+  "devDependencies": {
+    "playwright-core": "^1.62.1",
+    "vite": "^7.1.4"
+  }
+}
