@@ -11,9 +11,12 @@ The supplied Apple archive was served from `www.apple.com/www.apple.com` and its
 ## What is included
 
 - White, product-led responsive UI derived from the supplied local Apple snapshot, adapted for salon discovery and booking
+- Supplied Empress logo lockup in the navigation, with its woman mark used for the loader and favicon
 - Service discovery for braids, locs, nails, skin/body care, and cuts/colour
 - Clearly qualified “from” pricing based on recent published offers
 - Individual cards, phone links, directions, and WhatsApp routing for all three branches
+- Interactive, keyboard-friendly branch tabs with an embedded map and location-specific actions
+- Real, source-linked public TikTok comments without invented stars or ratings
 - Accessible booking dialog that builds a structured WhatsApp message
 - Keyboard-friendly price tabs, mobile navigation, accordion FAQs, and reduced-motion support
 - Asset-aware loading screen that releases after the local font and hero image are ready, with a fail-safe

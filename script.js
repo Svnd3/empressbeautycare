@@ -32,16 +32,40 @@ Promise.all([
 
 const branches = {
   rng: {
+    name: 'RNG Plaza',
+    city: 'Nairobi CBD',
     label: 'RNG Plaza — Nairobi CBD',
+    address: 'Ronald Ngala Street — 4th floor, Room OS3',
     phone: '254720016178',
+    phoneDisplay: '0720 016 178',
+    map: 'https://www.openstreetmap.org/export/embed.html?bbox=36.8205%2C-1.292%2C36.835%2C-1.278&layer=mapnik',
+    mapTitle: 'Map showing the Ronald Ngala Street area around Empress Beautycare at RNG Plaza',
+    mapNote: 'Area view — use directions for the exact entrance',
+    directions: 'https://www.google.com/maps/search/?api=1&query=Empress%20BeautyCare%2C%20RNG%20Plaza%2C%20Ronald%20Ngala%20Street%2C%20Nairobi%2C%20Kenya',
   },
   simara: {
+    name: 'Simara Mall',
+    city: 'Nairobi CBD',
     label: 'Simara Mall — Nairobi CBD',
+    address: 'Opp. National Archives — 7th floor, Room 8',
     phone: '254720016178',
+    phoneDisplay: '0720 016 178',
+    map: 'https://www.openstreetmap.org/export/embed.html?bbox=36.819%2C-1.291%2C36.833%2C-1.277&layer=mapnik&marker=-1.2840661%2C36.8260166',
+    mapTitle: 'Map showing Empress Beautycare at Simara Mall',
+    mapNote: 'Mall pin',
+    directions: 'https://www.google.com/maps/search/?api=1&query=Empress%20BeautyCare%2C%20Simara%20Mall%2C%20Tom%20Mboya%20Street%2C%20Nairobi%2C%20Kenya',
   },
   ruiru: {
+    name: 'Morovian Mall',
+    city: 'Ruiru',
     label: 'Morovian Mall — Ruiru',
+    address: 'Next to Zetech University — 1st floor, Room 16',
     phone: '254796350593',
+    phoneDisplay: '0796 350 593',
+    map: 'https://www.openstreetmap.org/export/embed.html?bbox=36.953%2C-1.160%2C36.970%2C-1.146&layer=mapnik&marker=-1.1533409%2C36.9617807',
+    mapTitle: 'Map showing Empress Beautycare at Morovian Mall',
+    mapNote: 'Mall pin',
+    directions: 'https://www.google.com/maps/search/?api=1&query=Empress%20BeautyCare%2C%20Morovian%20Mall%2C%20Ruiru%2C%20Kenya',
   },
 };
 
@@ -67,6 +91,26 @@ menuToggle?.addEventListener('click', () => {
 });
 
 primaryNav?.querySelectorAll('a').forEach((link) => link.addEventListener('click', closeMenu));
+
+const navigationLinks = [...(primaryNav?.querySelectorAll('a[href^="#"]') ?? [])];
+const navigationSections = navigationLinks
+  .map((link) => document.querySelector(link.getAttribute('href')))
+  .filter(Boolean);
+
+if ('IntersectionObserver' in window) {
+  const navigationObserver = new IntersectionObserver((entries) => {
+    const visible = entries
+      .filter((entry) => entry.isIntersecting)
+      .sort((first, second) => second.intersectionRatio - first.intersectionRatio)[0];
+    if (!visible) return;
+    navigationLinks.forEach((link) => {
+      if (link.getAttribute('href') === `#${visible.target.id}`) link.setAttribute('aria-current', 'true');
+      else link.removeAttribute('aria-current');
+    });
+  }, { rootMargin: '-28% 0px -56%', threshold: [0, .2, .5] });
+
+  navigationSections.forEach((section) => navigationObserver.observe(section));
+}
 
 const openBooking = (trigger) => {
   closeMenu();
@@ -201,6 +245,77 @@ priceTabs.forEach((tab, index) => {
     if (nextIndex !== null) {
       event.preventDefault();
       activatePriceTab(priceTabs[nextIndex], true);
+    }
+  });
+});
+
+const mapTabs = [...document.querySelectorAll('[data-map-tab]')];
+const mapFrame = document.querySelector('[data-branch-map]');
+const mapCity = document.querySelector('[data-map-city]');
+const mapName = document.querySelector('[data-map-name]');
+const mapAddress = document.querySelector('[data-map-address]');
+const mapNote = document.querySelector('[data-map-note]');
+const mapCall = document.querySelector('[data-map-call]');
+const mapDirections = document.querySelector('[data-map-directions]');
+const mapBooking = document.querySelector('[data-map-booking]');
+const mapLoading = document.querySelector('[data-map-loading]');
+let mapReadyTimer;
+
+const showMapLoading = () => {
+  window.clearTimeout(mapReadyTimer);
+  mapLoading?.classList.remove('is-hidden');
+  mapFrame?.classList.remove('is-ready');
+};
+
+const finishMapLoading = () => {
+  window.clearTimeout(mapReadyTimer);
+  mapReadyTimer = window.setTimeout(() => {
+    mapLoading?.classList.add('is-hidden');
+    mapFrame?.classList.add('is-ready');
+  }, 1100);
+};
+
+mapFrame?.addEventListener('load', finishMapLoading);
+
+const activateMapTab = (tab, focus = false) => {
+  const branchKey = tab.dataset.mapTab;
+  const location = branches[branchKey];
+  if (!location) return;
+
+  mapTabs.forEach((item) => {
+    const selected = item === tab;
+    item.setAttribute('aria-pressed', String(selected));
+  });
+
+  if (mapFrame && mapFrame.src !== location.map) {
+    showMapLoading();
+    mapFrame.src = location.map;
+    mapFrame.title = location.mapTitle;
+  }
+  if (mapCity) mapCity.textContent = location.city;
+  if (mapName) mapName.textContent = location.name;
+  if (mapAddress) mapAddress.textContent = location.address;
+  if (mapNote) mapNote.textContent = location.mapNote;
+  if (mapCall) {
+    mapCall.href = `tel:+${location.phone}`;
+    mapCall.textContent = `Call ${location.phoneDisplay}`;
+  }
+  if (mapDirections) mapDirections.href = location.directions;
+  if (mapBooking) mapBooking.dataset.branch = branchKey;
+  if (focus) tab.focus();
+};
+
+mapTabs.forEach((tab, index) => {
+  tab.addEventListener('click', () => activateMapTab(tab));
+  tab.addEventListener('keydown', (event) => {
+    let nextIndex = null;
+    if (event.key === 'ArrowRight' || event.key === 'ArrowDown') nextIndex = (index + 1) % mapTabs.length;
+    if (event.key === 'ArrowLeft' || event.key === 'ArrowUp') nextIndex = (index - 1 + mapTabs.length) % mapTabs.length;
+    if (event.key === 'Home') nextIndex = 0;
+    if (event.key === 'End') nextIndex = mapTabs.length - 1;
+    if (nextIndex !== null) {
+      event.preventDefault();
+      activateMapTab(mapTabs[nextIndex], true);
     }
   });
 });

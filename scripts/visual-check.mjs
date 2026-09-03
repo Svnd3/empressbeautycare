@@ -31,7 +31,7 @@ const exercisePage = async ({ name, width, height, mobile = false }) => {
     if (message.type() === 'error') pageErrors.push(message.text());
   });
 
-  await page.goto(baseUrl, { waitUntil: 'networkidle' });
+  await page.goto(baseUrl, { waitUntil: 'domcontentloaded' });
   await page.locator('.site-loader').waitFor({ state: 'detached', timeout: 4000 });
   const loadingState = await page.locator('body').getAttribute('aria-busy');
   if (loadingState !== 'false') failures.push(`${name}: loading screen did not release cleanly`);
@@ -69,7 +69,15 @@ const exercisePage = async ({ name, width, height, mobile = false }) => {
     await page.keyboard.press('Escape');
   }
 
-  await page.locator('[data-open-booking][data-branch="ruiru"]').click();
+  await page.locator('[data-map-tab="ruiru"]').click();
+  const mapTitle = await page.locator('[data-branch-map]').getAttribute('title');
+  const selectedLocation = await page.locator('[data-map-name]').textContent();
+  if (mapTitle !== 'Map showing Empress Beautycare at Morovian Mall' || selectedLocation !== 'Morovian Mall') {
+    failures.push(`${name}: branch map did not switch to Morovian Mall`);
+  }
+  await page.locator('[data-map-loading]').waitFor({ state: 'hidden', timeout: 10000 });
+
+  await page.locator('[data-map-booking]').click();
   const dialogIsOpen = await page.locator('#booking-dialog').evaluate((dialog) => dialog.hasAttribute('open'));
   if (!dialogIsOpen) failures.push(`${name}: booking dialog did not open`);
   await page.waitForTimeout(420);
@@ -110,4 +118,4 @@ if (failures.length) {
 }
 
 console.log('✓ Desktop and mobile layouts captured');
-console.log('✓ Loader, white canvas, images, mobile menu, booking dialog, and Ruiru WhatsApp routing passed');
+console.log('✓ Loader, white canvas, images, menu, map tabs, booking dialog, and Ruiru WhatsApp routing passed');

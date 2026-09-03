@@ -14,7 +14,7 @@ The site is worth pitching because it solves specific, observable problems:
 - Three branches and two phone numbers are spread across bios, captions, profiles, and older directory records.
 - Legacy addresses and conflicting public hours can create avoidable uncertainty.
 - A wide and frequently changing service menu is difficult to navigate in a social feed.
-- There is no strong, reliable independent review hub to quote; the website can improve clarity and trust without inventing social proof.
+- There is no strong, reliable independent review hub, so the website cites a small set of real public TikTok comments instead of inventing ratings or review totals.
 - A branch-aware WhatsApp request reduces repeated questions and routes Ruiru enquiries to its distinct number.
 
 The website will only reach its potential if the team keeps branch data and offers current, replies reliably on WhatsApp, and supplies approved original media. The design cannot compensate for slow replies or uneven in-studio delivery.
@@ -32,7 +32,7 @@ The website will only reach its potential if the team keeps branch data and offe
    [Call 0720 016 178](tel:+254720016178) · [WhatsApp](https://wa.me/254720016178) · [Google Maps search](https://www.google.com/maps/search/?api=1&query=Empress%20BeautyCare%20Simara%20Mall%20Tom%20Mboya%20Street%20Nairobi)
 
 3. **Morovian Mall — Ruiru**
-   Next to Zetech University, 1st floor, Room F16
+   Next to Zetech University, 1st floor, Room 16
    [Call 0796 350 593](tel:+254796350593) · [WhatsApp](https://wa.me/254796350593) · [Google Maps search](https://www.google.com/maps/search/?api=1&query=Empress%20BeautyCare%20Morovian%20Mall%20Ruiru%20Zetech)
 
 These are consistent across the current Instagram bio and recent official TikTok branch/service posts. Search links are used instead of invented map pins because no definitive, owner-claimed Google Business profile was established for every branch.
@@ -95,11 +95,15 @@ Primary price evidence:
 
 For that reason, the concept says **“Open daily · Walk-ins welcome · confirm today’s closing time on WhatsApp”** and does not publish fixed hours or happy-hour terms. Obtain a written schedule from the client before launch.
 
-## Reputation and discovery
+## Public customer comments
 
-No sufficiently reliable review profile or review corpus was found. A weak/unconfirmed Maps surface with only two mixed reviews appeared during research, but it was not strong enough to establish ownership, a representative rating, or publishable testimonials. The website therefore avoids stars, review counts, quotations, “best salon” claims, and fabricated customer names.
+No sufficiently reliable Google review corpus was found. Rather than inventing stars, scores, or a review total, the concept quotes three public comments left under posts on Empress Beautycare’s official TikTok account. The wording is reproduced as posted and each card links back to its source:
 
-This is both a risk and an opportunity. The site can establish an accurate source of truth, but Empress should also claim/clean up each map listing, request honest post-visit reviews, and respond professionally to criticism.
+- “Am a happy client thank you my good friend fatma🥰” — Maguire❣️💪✨, [source post](https://www.tiktok.com/@empressbeautycare/video/7652209831553682696)
+- “my all time salon...my loctician Gomez on the front🥰” — Evanso, [source post](https://www.tiktok.com/@empressbeautycare/video/7442580353761430840)
+- “say hi to purity🥰🥰I love her service” — sylvia, [source post](https://www.tiktok.com/@empressbeautycare/video/7442580353761430840)
+
+These are attributable public comments, not independently verified transactions. The interface labels them “Public TikTok comment” and does not present an aggregate rating. Empress should still claim or correct each Google Business profile, request honest post-visit reviews, and obtain permission before using customer names in a final commercial launch.
 
 ## Design and conversion rationale
 
@@ -115,7 +119,7 @@ The result avoids the reference barbershop’s gender toggle, electric pink/blue
 
 1. Show the working concept on a phone, centred on the branch-to-WhatsApp flow.
 2. Confirm the business owner, decision-makers, branch details, opening hours, and price policy.
-3. Request the original logo plus 12–20 approved, high-resolution photos covering each branch and service.
+3. Confirm approval for the supplied logo and request 12–20 approved, original-resolution photos covering each branch and service.
 4. Agree who owns offer updates and how quickly WhatsApp enquiries should be answered.
 5. Claim or correct all three Google Business profiles and start a permission-based review process.
 6. Connect a domain, privacy-respecting analytics, and Search Console only after approval.

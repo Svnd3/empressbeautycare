@@ -6,13 +6,21 @@ const requiredFiles = [
   'index.html',
   'styles.css',
   'script.js',
-  'public/favicon.svg',
+  'public/images/empress-logo.png',
+  'public/images/empress-icon.png',
   'public/images/salon.webp',
   'public/images/braids.webp',
   'public/images/twists.webp',
   'public/images/locs.webp',
   'public/images/nails.webp',
   'public/images/haircut.webp',
+  'public/images/knotless-process.webp',
+  'public/images/nail-service.webp',
+  'public/images/massage.webp',
+  'public/images/salon-team.webp',
+  'public/images/finished-twists.webp',
+  'public/images/two-strand-locs.webp',
+  'public/images/protective-braids.webp',
   'dist/index.html',
 ];
 
@@ -31,9 +39,32 @@ if (/href=["']#["']/.test(html)) problems.push('Found a dead href="#" link.');
 if (/\b(TODO|Lorem ipsum|placeholder copy)\b/i.test(html)) problems.push('Found unfinished placeholder copy.');
 if (!html.includes('data-open-booking')) problems.push('Booking triggers are missing.');
 if (!html.includes('application/ld+json')) problems.push('Structured business data is missing.');
+if (!html.includes('<h2>Services</h2>') || !html.includes('<h2>Pricing</h2>') || !html.includes('<h2>Our works</h2>')) {
+  problems.push('The simplified section headings are missing.');
+}
+if (!html.includes('From the Empress chair') || !html.includes('Public TikTok comment')) {
+  problems.push('The sourced customer-comment section is missing.');
+}
+if (!html.includes('data-branch-map') || !script.includes('activateMapTab')) {
+  problems.push('The interactive branch map is missing.');
+}
+if (/class=["'][^"']*(pink-dot|decorative-dot)/i.test(html)) problems.push('A decorative pink dot remains.');
+if (styles.includes('.eyebrow::before')) problems.push('A decorative heading dot remains in the stylesheet.');
+if (html.includes('·')) problems.push('A middle-dot separator remains in the interface.');
+if (/<button[^>]*class=["'][^"']*card-link[^"']*["'][^>]*>[^<]*[→➜➝]/i.test(html)) {
+  problems.push('A service request button still contains an arrow.');
+}
+const requestButtons = html.match(/class="card-link"[^>]*>Request this<\/button>/g) ?? [];
+if (requestButtons.length !== 5) problems.push(`Expected 5 simplified service request buttons, found ${requestButtons.length}.`);
+const workCards = html.match(/class="lookbook-item[^"']*"/g) ?? [];
+if (workCards.length < 12) problems.push(`Expected at least 12 work images, found ${workCards.length}.`);
 if (!html.includes('class="site-loader"') || !script.includes("siteLoader?.classList.add('is-complete')")) {
   problems.push('The loading screen or its asset-ready dismissal is missing.');
 }
+if (!html.includes('data-map-loading') || !styles.includes('.map-loading.is-hidden')) {
+  problems.push('The map loading state is missing.');
+}
+if (html.includes('Room F16') || script.includes('Room F16')) problems.push('The old Ruiru room notation remains.');
 if (!styles.includes('--white: #fff') || !styles.includes('--pink: #d60062')) {
   problems.push('The white-and-pink design tokens are missing.');
 }
@@ -44,4 +75,4 @@ if (problems.length) {
 }
 
 console.log(`✓ ${requiredFiles.length} required files found`);
-console.log('✓ Branch, contact, booking, loader, design-token, and structured-data checks passed');
+console.log('✓ Content, branches, booking, map, loader, brand, and design checks passed');
