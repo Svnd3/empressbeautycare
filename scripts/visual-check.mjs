@@ -130,7 +130,10 @@ const exercisePage = async ({ name, width, height, mobile = false }) => {
         panelHeightRatio: shapeBox && stageBox.height ? shapeBox.height / stageBox.height : 0,
         panelLeavesImageVisibleLeft,
         panelWidthRatio: shapeBox && stageBox.width ? shapeBox.width / stageBox.width : 0,
-        stageIsFullBleed: Math.abs(stageBox.left) <= 1 && Math.abs(stageBox.right - innerWidth) <= 1,
+        stageIsFullBleed: Math.abs(stageBox.left) <= 1
+          && Math.abs(stageBox.top) <= 1
+          && Math.abs(stageBox.right - innerWidth) <= 1
+          && Math.abs(stageBox.height - innerHeight) <= 1,
       };
     }, mobile);
 
