@@ -566,12 +566,13 @@ figure, p, h1, h2, h3, ol, ul { margin: 0; }
   align-items: center;
   background: var(--white);
   border: 1px solid var(--line);
-  border-radius: 50%;
+  border-radius: 999px;
   display: inline-flex;
-  font-size: 17px;
+  font-size: 12px;
+  font-weight: 700;
   height: 44px;
   justify-content: center;
-  width: 44px;
+  padding: 0 17px;
 }
 
 .prices-section {
@@ -1197,18 +1198,9 @@ figure, p, h1, h2, h3, ol, ul { margin: 0; }
 }
 .form-submit {
   border: 0;
-  justify-content: space-between;
+  justify-content: center;
   margin-top: 2px;
   width: 100%;
-}
-.form-submit svg {
-  fill: none;
-  height: 18px;
-  stroke: currentColor;
-  stroke-linecap: round;
-  stroke-linejoin: round;
-  stroke-width: 1.8;
-  width: 18px;
 }
 .form-status { color: var(--pink); font-size: 10px; min-height: 15px; }
 .reveal { opacity: 1; transform: none; }

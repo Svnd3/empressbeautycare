@@ -51,9 +51,8 @@ if (!html.includes('data-branch-map') || !script.includes('activateMapTab')) {
 if (/class=["'][^"']*(pink-dot|decorative-dot)/i.test(html)) problems.push('A decorative pink dot remains.');
 if (styles.includes('.eyebrow::before')) problems.push('A decorative heading dot remains in the stylesheet.');
 if (html.includes('·')) problems.push('A middle-dot separator remains in the interface.');
-if (/<button[^>]*class=["'][^"']*card-link[^"']*["'][^>]*>[^<]*[→➜➝]/i.test(html)) {
-  problems.push('A service request button still contains an arrow.');
-}
+if (/[←→↗↘↖↙➜➝➞➟➠➡➢➤]/u.test(html)) problems.push('A visible arrow glyph remains in the interface.');
+if (/<button[^>]*class=["'][^"']*form-submit[^"']*["'][^>]*>(?:(?!<\/button>)[\s\S])*?<svg/i.test(html)) problems.push('The WhatsApp submit button still contains a trailing arrow icon.');
 const requestButtons = html.match(/class="card-link"[^>]*>Request this<\/button>/g) ?? [];
 if (requestButtons.length !== 5) problems.push(`Expected 5 simplified service request buttons, found ${requestButtons.length}.`);
 const workCards = html.match(/class="lookbook-item[^"']*"/g) ?? [];
